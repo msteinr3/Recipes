@@ -30,15 +30,14 @@ class HomeFragment : Fragment() {
     ): View? {
         _binding = HomeFragmentBinding.inflate(inflater, container, false);
 
-        /*
-        //get recipes from API and add
-        val recipe = Recipe(binding.title.text.toString(),
-                imageUri.toString(),
-                binding.ingredients.text.toString(),
-                binding.instructions.text.toString(),
-            false)
-                RecipeManager.add(recipe)
-         */
+        //get info from API
+        val title = ""
+        val photo = ""
+        val ingredients = ""
+        val instructions = ""
+
+        val recipe = Recipe(title, photo, ingredients, instructions, favorite = false, internet = true)
+        RecipeManager.add(recipe)
 
         return binding.root
     }
@@ -46,9 +45,12 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //filter recipes by internet (true)
+        val internet = RecipeManager.recipes.filter { it.internet }
+
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())
         binding.recycler.adapter =
-            RecipeAdapter(RecipeManager.recipes, object : RecipeAdapter.RecipeListener {
+            RecipeAdapter(internet, object : RecipeAdapter.RecipeListener {
                 override fun onRecipeClicked(index: Int) {
 
                     //pass index

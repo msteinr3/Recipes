@@ -32,10 +32,10 @@ class FavoritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //filter recipes by favorite (true)
+        val liked = RecipeManager.recipes.filter { it.favorite }
 
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())
-        binding.recycler.adapter =
-            RecipeAdapter(RecipeManager.recipes, object : RecipeAdapter.RecipeListener {
+        binding.recycler.adapter = RecipeAdapter(liked, object : RecipeAdapter.RecipeListener {
                 override fun onRecipeClicked(index: Int) {
                     //pass index
                     val bundle = bundleOf("index" to index)
@@ -52,12 +52,10 @@ class FavoritesFragment : Fragment() {
                 binding.grid.tag = "yellow"
                 binding.grid.setBackgroundResource(R.color.yellow)
                 binding.recycler.layoutManager = GridLayoutManager(requireContext(), 2)
-                //binding.recycler.adapter = RecipeAdapter(RecipeManager.recipes)
             } else {
                 binding.grid.setBackgroundResource(R.color.white)
                 binding.grid.tag = "white"
                 binding.recycler.layoutManager = LinearLayoutManager(requireContext())
-                //binding.recycler.adapter = RecipeAdapter(RecipeManager.recipes)
             }
         }
     }

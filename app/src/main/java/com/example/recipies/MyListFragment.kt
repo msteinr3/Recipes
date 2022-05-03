@@ -41,9 +41,12 @@ class MyListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //filter recipes by internet (false)
+        val mine = RecipeManager.recipes.filter { !it.internet }
+
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())
         binding.recycler.adapter =
-            RecipeAdapter(RecipeManager.recipes, object : RecipeAdapter.RecipeListener {
+            RecipeAdapter(mine, object : RecipeAdapter.RecipeListener {
                 override fun onRecipeClicked(index: Int) {
                     //pass index
                     val bundle = bundleOf("index" to index)

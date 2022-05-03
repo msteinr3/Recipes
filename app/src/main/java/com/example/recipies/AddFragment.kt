@@ -18,7 +18,7 @@ class AddFragment : Fragment() {
 
     private var _binding: AddFragmentBinding? = null
     private val binding get() = _binding!!
-    private var imageUri : Uri? = null
+    private var imageUri: Uri? = null
     private lateinit var pic: ImageView
 
     private val pickItemLauncher: ActivityResultLauncher<Array<String>> =
@@ -36,15 +36,18 @@ class AddFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = AddFragmentBinding.inflate(inflater,container,false);
+        _binding = AddFragmentBinding.inflate(inflater, container, false);
 
         binding.finishBtn.setOnClickListener {
-            val recipe = Recipe(binding.title.text.toString(),
+            val recipe = Recipe(
+                binding.title.text.toString(),
                 imageUri.toString(),
                 binding.ingredients.text.toString(),
                 binding.instructions.text.toString(),
-            false)
-                RecipeManager.add(recipe)
+                favorite = false,
+                internet = false
+            )
+            RecipeManager.add(recipe)
             findNavController().navigate(R.id.action_addFragment_to_myListFragment)
             //need to hit back can't hit +
         }

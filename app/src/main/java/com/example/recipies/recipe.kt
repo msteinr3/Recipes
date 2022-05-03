@@ -3,7 +3,7 @@ package com.example.recipies
 import android.net.Uri
 import java.net.URI
 
-data class Recipe(val title: String, val photo: String?, val ingredients: String, val instructions: String, var favorite: Boolean)
+data class Recipe(val title: String, val photo: String?, val ingredients: String, val instructions: String, var favorite: Boolean, var internet: Boolean)
 
 object RecipeManager {
 
