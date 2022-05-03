@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.recipies.FavoritesFragment"
+        android:label="favorites_fragment"
+        tools:layout="@layout/favorites_fragment" >
+
+        <action
+            android:id="@+id/action_favoritesFragment_to_recipeFragment"
+            app:destination="@id/recipeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.recipies.HomeFragment"
+        android:label="home_fragment"
+        tools:layout="@layout/home_fragment" >
+
+        <action
+            android:id="@+id/action_homeFragment_to_recipeFragment"
+            app:destination="@id/recipeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.recipies.SettingsFragment"
+        android:label="settings_fragment"
+        tools:layout="@layout/settings_fragment" />
+
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.example.recipies.AddFragment"
+        android:label="add_fragment"
+        tools:layout="@layout/add_fragment" >
+        <action
+            android:id="@+id/action_addFragment_to_myListFragment"
+            app:destination="@id/myListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/myListFragment"
+        android:name="com.example.recipies.MyListFragment"
+        android:label="my_list_fragment"
+        tools:layout="@layout/my_list_fragment" >
+        <action
+            android:id="@+id/action_myListFragment_to_recipeFragment"
+            app:destination="@id/recipeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipeFragment"
+        android:name="com.example.recipies.RecipeFragment"
+        android:label="recipe_fragment"
+        tools:layout="@layout/recipe_fragment" />
+</navigation>
