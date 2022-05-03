@@ -30,6 +30,14 @@ class HomeFragment : Fragment() {
     ): View? {
         _binding = HomeFragmentBinding.inflate(inflater, container, false);
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        /*
+         //request internet permission
         //get info from API
         val title = ""
         val photo = ""
@@ -38,14 +46,11 @@ class HomeFragment : Fragment() {
 
         val recipe = Recipe(title, photo, ingredients, instructions, favorite = false, internet = true)
         RecipeManager.add(recipe)
+         */
 
-        return binding.root
-    }
+        //implement searchbar
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        //filter recipes by internet (true)
+        //filters recipes by internet (true)
         val internet = RecipeManager.recipes.filter { it.internet }
 
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())

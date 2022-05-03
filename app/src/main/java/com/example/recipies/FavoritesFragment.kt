@@ -31,7 +31,7 @@ class FavoritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //filter recipes by favorite (true)
+        //filters recipes by favorite (true)
         val liked = RecipeManager.recipes.filter { it.favorite }
 
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())

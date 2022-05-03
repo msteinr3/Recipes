@@ -25,24 +25,15 @@ class MyListFragment : Fragment() {
     ): View? {
         _binding = HomeFragmentBinding.inflate(inflater, container, false);
 
-        /*
-        //recipes I added
-        val recipe = Recipe(binding.title.text.toString(),
-                imageUri.toString(),
-                binding.ingredients.text.toString(),
-                binding.instructions.text.toString(),
-            false)
-                RecipeManager.add(recipe)
-         */
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //filter recipes by internet (false)
-        val mine = RecipeManager.recipes.filter { !it.internet }
+        //filters recipes by internet (false)
+        var mine = RecipeManager.recipes.filter { !it.internet }
+        mine = mine.sortedBy { Recipe -> Recipe.title }
 
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())
         binding.recycler.adapter =
