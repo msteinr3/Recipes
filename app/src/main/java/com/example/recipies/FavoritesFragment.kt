@@ -23,7 +23,7 @@ class FavoritesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FavoritesFragmentBinding.inflate(inflater,container,false);
+        _binding = FavoritesFragmentBinding.inflate(inflater, container,false);
 
         return binding.root
     }
@@ -32,20 +32,26 @@ class FavoritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //filters recipes by favorite (true)
-        val liked = RecipeManager.recipes.filter { it.favorite }
+        var liked = RecipeManager.recipes.filter { it.favorite }
 
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())
         binding.recycler.adapter = RecipeAdapter(liked, object : RecipeAdapter.RecipeListener {
                 override fun onRecipeClicked(index: Int) {
                     //pass index
-                    val bundle = bundleOf("index" to index)
+                    val num = RecipeManager.recipes.indexOf(liked[index])
+                    val bundle = bundleOf("index" to num)
                     findNavController().navigate(R.id.action_favoritesFragment_to_recipeFragment, bundle)
                 }
 
-                override fun onRecipeLongClicked(index: Int) {
-                    RecipeManager.recipes[index].favorite = !RecipeManager.recipes[index].favorite
+            override fun onRecipeLongClicked(index: Int) {
+                liked[index].favorite = !liked[index].favorite
+                if (binding.grid.tag == "white") {
+                    binding.recycler.layoutManager = LinearLayoutManager(requireContext())
+                } else {
+                    binding.recycler.layoutManager = GridLayoutManager(requireContext(), 2)
                 }
-            })
+            }
+        })
 
         binding.grid.setOnClickListener {
             if (binding.grid.tag == "white") {

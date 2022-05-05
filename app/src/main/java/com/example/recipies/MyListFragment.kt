@@ -33,19 +33,25 @@ class MyListFragment : Fragment() {
 
         //filters recipes by internet (false)
         var mine = RecipeManager.recipes.filter { !it.internet }
-        mine = mine.sortedBy { Recipe -> Recipe.title }
+        //mine = mine.sortedBy { Recipe -> Recipe.title }
 
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())
         binding.recycler.adapter =
             RecipeAdapter(mine, object : RecipeAdapter.RecipeListener {
                 override fun onRecipeClicked(index: Int) {
-                    //pass index
-                    val bundle = bundleOf("index" to index)
+                    //pass index and list
+                    val num = RecipeManager.recipes.indexOf(mine[index])
+                    val bundle = bundleOf("index" to num)
                     findNavController().navigate(R.id.action_myListFragment_to_recipeFragment, bundle)
                 }
 
                 override fun onRecipeLongClicked(index: Int) {
-                    RecipeManager.recipes[index].favorite = !RecipeManager.recipes[index].favorite
+                    mine[index].favorite = !mine[index].favorite
+                    if (binding.grid.tag == "white") {
+                        binding.recycler.layoutManager = LinearLayoutManager(requireContext())
+                    } else {
+                        binding.recycler.layoutManager = GridLayoutManager(requireContext(), 2)
+                    }
                 }
             })
 
@@ -54,12 +60,10 @@ class MyListFragment : Fragment() {
                 binding.grid.tag = "yellow"
                 binding.grid.setBackgroundResource(R.color.yellow)
                 binding.recycler.layoutManager = GridLayoutManager(requireContext(), 2)
-                //binding.recycler.adapter = RecipeAdapter(RecipeManager.recipes)
             } else {
                 binding.grid.setBackgroundResource(R.color.white)
                 binding.grid.tag = "white"
                 binding.recycler.layoutManager = LinearLayoutManager(requireContext())
-                //binding.recycler.adapter = RecipeAdapter(RecipeManager.recipes)
             }
         }
 
@@ -81,7 +85,6 @@ class MyListFragment : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 RecipeManager.remove(viewHolder.adapterPosition)
                 binding.recycler.adapter!!.notifyItemRemoved(viewHolder.adapterPosition)
-
             }
         }).attachToRecyclerView(binding.recycler)
     }

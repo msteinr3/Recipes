@@ -13,5 +13,18 @@
     <string name="camera">Camera</string>
     <string name="internet">internet</string>
     <string name="my_recipes">My Recipes</string>
+    <string name="category">Category</string>
+
+    <string-array name="categories">
+        <item>Other</item>
+        <item>Appetizer</item>
+        <item>Snack</item>
+        <item>Salad</item>
+        <item>Dessert</item>
+        <item>Soup</item>
+        <item>Moroccan</item>
+        <item>Meat</item>
+        <item>Veggie</item>
+    </string-array>
 
 </resources>

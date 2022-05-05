@@ -51,7 +51,7 @@ class HomeFragment : Fragment() {
         //implement searchbar
 
         //filters recipes by internet (true)
-        val internet = RecipeManager.recipes.filter { it.internet }
+        var internet = RecipeManager.recipes.filter { it.internet }
 
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())
         binding.recycler.adapter =
@@ -59,12 +59,18 @@ class HomeFragment : Fragment() {
                 override fun onRecipeClicked(index: Int) {
 
                     //pass index
-                    val bundle = bundleOf("index" to index)
+                    val num = RecipeManager.recipes.indexOf(internet[index])
+                    val bundle = bundleOf("index" to num)
                     findNavController().navigate(R.id.action_homeFragment_to_recipeFragment, bundle)
                 }
 
                 override fun onRecipeLongClicked(index: Int) {
                     RecipeManager.recipes[index].favorite = !RecipeManager.recipes[index].favorite
+                    if (binding.grid.tag == "white") {
+                        binding.recycler.layoutManager = LinearLayoutManager(requireContext())
+                    } else {
+                        binding.recycler.layoutManager = GridLayoutManager(requireContext(), 2)
+                    }
                 }
             })
 

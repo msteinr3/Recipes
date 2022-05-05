@@ -21,8 +21,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //fuck you!
-        val navHostFragment = supportFragmentManager.findFragmentByTag("fuckyou") as NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentByTag("fragment") as NavHostFragment
         navController = navHostFragment.navController
         val bottomNav = binding.bottomNav
         setupWithNavController(bottomNav, navController)

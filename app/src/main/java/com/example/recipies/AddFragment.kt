@@ -7,8 +7,7 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -21,7 +20,6 @@ class AddFragment : Fragment() {
     private var _binding: AddFragmentBinding? = null
     private val binding get() = _binding!!
     private var imageUri: Uri? = null
-    private lateinit var pic: ImageView
 
     private val pickItemLauncher: ActivityResultLauncher<Array<String>> =
         registerForActivityResult(ActivityResultContracts.OpenDocument()) {
@@ -40,6 +38,19 @@ class AddFragment : Fragment() {
     ): View? {
         _binding = AddFragmentBinding.inflate(inflater, container, false);
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        var spinner = ""
+        val adapter = ArrayAdapter.createFromResource(requireContext(), R.array.categories, R.layout.drop_down)
+        binding.dropdown.setAdapter(adapter)
+        binding.dropdown.setOnItemClickListener { adapterView, view, i, l ->
+            spinner = adapterView.getItemAtPosition(i).toString()
+        }
+
         binding.choosePic.setOnClickListener {
             pickItemLauncher.launch(arrayOf("image/*"))
             binding.pic.setImageURI(imageUri)
@@ -54,23 +65,27 @@ class AddFragment : Fragment() {
 
         binding.finishBtn.setOnClickListener {
             if (binding.title.text.toString().isEmpty() ||
-                imageUri == null ||
                 binding.ingredients.text.toString().isEmpty() ||
-                binding.instructions.text.toString().isEmpty()
-            ) {
+                binding.instructions.text.toString().isEmpty() ||
+                spinner.isEmpty() ||
+                imageUri == null
+                    ) {
                 val builder = StringBuilder("Missing info:\n")
 
                 if (binding.title.text.toString().isEmpty()) {
                     builder.append("Title, ")
                 }
-                if (imageUri == null) {
-                    builder.append("photo, ")
-                }
                 if (binding.ingredients.text.toString().isEmpty()) {
                     builder.append("ingredients, ")
                 }
                 if (binding.instructions.text.toString().isEmpty()) {
-                    builder.append("instructions")
+                    builder.append("instructions, ")
+                }
+                if (spinner.isEmpty()) {
+                    builder.append("category, ")
+                }
+                if (imageUri == null) {
+                    builder.append("photo")
                 }
                 Toast.makeText(requireContext(), builder.toString(), Toast.LENGTH_LONG).show()
             } else {
@@ -79,6 +94,7 @@ class AddFragment : Fragment() {
                     imageUri.toString(),
                     binding.ingredients.text.toString(),
                     binding.instructions.text.toString(),
+                    spinner,
                     favorite = false,
                     internet = false
                 )
@@ -87,12 +103,6 @@ class AddFragment : Fragment() {
                 //need to hit back can't hit + icon
             }
         }
-
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onDestroyView() {

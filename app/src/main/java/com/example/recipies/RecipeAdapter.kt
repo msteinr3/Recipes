@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.recipies.databinding.RecipeLayoutBinding
 
-class RecipeAdapter(val recipes: List<Recipe>, private val callback: RecipeListener) :
+class RecipeAdapter(private val recipes: List<Recipe>, private val callback: RecipeListener) :
     RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
     interface RecipeListener {
@@ -49,7 +49,6 @@ class RecipeAdapter(val recipes: List<Recipe>, private val callback: RecipeListe
                 LayoutInflater.from(parent.context),
                 parent,
                 false))
-
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) =
         holder.bind(recipes[position])
