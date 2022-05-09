@@ -40,25 +40,3 @@ class RecipeFragment : Fragment() {
         _binding = null
     }
 }
-
-/*
-binding.title.text = RecipeManager.recipes[index!!].title
-        binding.pic.setImageURI(Uri.parse(RecipeManager.recipes[index].photo))
-        binding.ingredients.text = RecipeManager.recipes[index].ingredients
-        binding.instructions.text = RecipeManager.recipes[index].instructions
-
-
-                var list = liked
-
-        when {
-            findNavController().currentBackStackEntry.toString() == R.id.favoritesFragment.toString() -> {
-                list = liked
-            }
-            findNavController().currentBackStackEntry.toString() == R.id.homeFragment.toString() -> {
-                list = internet
-            }
-            findNavController().currentBackStackEntry.toString() == R.id.myListFragment.toString() -> {
-                list = mine
-            }
-        }
- */
