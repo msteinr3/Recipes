@@ -11,14 +11,30 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/title"
-        android:textColor="@color/black"
-        android:textSize="40sp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/title"
+                android:textColor="@color/black"
+                android:textSize="40sp" />
+
+            <ImageButton
+                android:id="@+id/edit"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="10dp"
+                android:background="@color/white"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_baseline_edit" />
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/category"
@@ -29,54 +45,54 @@
             android:textColor="@color/black"
             android:textSize="25sp" />
 
-    <ImageView
-        android:id="@+id/pic"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginVertical="5dp"
-        android:src="@drawable/ic_baseline_fastfood" />
+        <ImageView
+            android:id="@+id/pic"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginVertical="5dp"
+            android:src="@drawable/ic_baseline_fastfood" />
 
-    <TextView
-        android:id="@+id/text_ingredients"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="5dp"
-        android:layout_marginStart="20dp"
-        android:text="Ingredients: "
-        android:textColor="@color/black"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/text_ingredients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:layout_marginStart="20dp"
+            android:text="Ingredients: "
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/ingredients"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="5dp"
-        android:layout_marginStart="20dp"
-        android:text="Long \nList \nOf \nIngredients"
-        android:textColor="@color/black"
-        android:textSize="20sp" />
+        <TextView
+            android:id="@+id/ingredients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:layout_marginStart="20dp"
+            android:text="Long \nList \nOf \nIngredients"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/text_instructions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="5dp"
-        android:layout_marginStart="20dp"
-        android:text="Instructions: "
-        android:textColor="@color/black"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/text_instructions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:layout_marginStart="20dp"
+            android:text="Instructions: "
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/instructions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="5dp"
-        android:layout_marginStart="20dp"
-        android:text="Long \nList \nOf \nInstructions"
-        android:textColor="@color/black"
-        android:textSize="20sp" />
+        <TextView
+            android:id="@+id/instructions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:layout_marginStart="20dp"
+            android:text="Long \nList \nOf \nInstructions"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
     </LinearLayout>
 </ScrollView>

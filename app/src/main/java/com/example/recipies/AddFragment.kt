@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,8 +42,27 @@ class AddFragment : Fragment() {
         return binding.root
     }
 
+    private fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //set category
+        //need to delete existing recipe?
+
+        val title = arguments?.getString("title", "")
+        val pic = arguments?.getParcelable<Uri>("pic")
+        val category = arguments?.getString("category", "")
+        val ingredients = arguments?.getString("ingredients", "")
+        val instructions = arguments?.getString("instructions", "")
+
+        binding.title.text = title?.toEditable()
+        binding.ingredients.text = ingredients?.toEditable()
+        binding.instructions.text = instructions?.toEditable()
+        //binding.dropdown.???
+        binding.pic.setImageURI(pic)
+        imageUri = pic
+
 
         var spinner = ""
         val adapter = ArrayAdapter.createFromResource(requireContext(), R.array.categories, R.layout.drop_down)

@@ -56,5 +56,9 @@
         android:id="@+id/recipeFragment"
         android:name="com.example.recipies.RecipeFragment"
         android:label="recipe_fragment"
-        tools:layout="@layout/recipe_fragment" />
+        tools:layout="@layout/recipe_fragment" >
+        <action
+            android:id="@+id/action_recipeFragment_to_addFragment"
+            app:destination="@id/addFragment" />
+    </fragment>
 </navigation>

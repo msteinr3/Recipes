@@ -1,5 +1,6 @@
 package com.example.recipies
 
+import android.icu.lang.UCharacter.IndicPositionalCategory.LEFT
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -71,7 +72,7 @@ class MyListFragment : Fragment() {
             override fun getMovementFlags(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder
-            ) = makeFlag(ItemTouchHelper.ACTION_STATE_SWIPE, ItemTouchHelper.LEFT)
+            ) = makeFlag(ItemTouchHelper.ACTION_STATE_SWIPE, LEFT)
             //or makeFlag(ACTION_STATE_DRAG, UP or DOWN or LEFT or RIGHT)
 
             override fun onMove(
@@ -83,8 +84,8 @@ class MyListFragment : Fragment() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                RecipeManager.remove(viewHolder.adapterPosition)
-                binding.recycler.adapter!!.notifyItemRemoved(viewHolder.adapterPosition)
+                RecipeManager.remove(viewHolder.layoutPosition)
+                binding.recycler.adapter!!.notifyItemRemoved(viewHolder.layoutPosition)
             }
         }).attachToRecyclerView(binding.recycler)
     }
