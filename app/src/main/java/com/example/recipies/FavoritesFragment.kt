@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +18,7 @@ class FavoritesFragment : Fragment() {
 
     private var _binding: FavoritesFragmentBinding? = null
     private val binding get() = _binding!!
+    private val viewModel : RecipeViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,33 +27,39 @@ class FavoritesFragment : Fragment() {
     ): View? {
         _binding = FavoritesFragmentBinding.inflate(inflater, container,false);
 
+        if (binding.grid.tag == "white") {
+            binding.recycler.layoutManager = LinearLayoutManager(requireContext())
+        } else {
+            binding.recycler.layoutManager = GridLayoutManager(requireContext(), 2)
+        }
+
+        viewModel.getRecipes()?.observe(viewLifecycleOwner) {
+            //filters recipes by favorite (true)
+            val liked = it.filter { it.favorite }
+
+            binding.recycler.adapter = RecipeAdapter(liked, object : RecipeAdapter.RecipeListener {
+
+                override fun onRecipeClicked(index: Int) {
+                    //pass index
+                    val num = it.indexOf(liked[index])
+                    val bundle = bundleOf("index" to num)
+                    findNavController().navigate(R.id.action_favoritesFragment_to_recipeFragment, bundle)
+                }
+
+                override fun onRecipeLongClicked(index: Int) {
+                    liked[index].favorite = !liked[index].favorite
+                    viewModel.addRecipe(liked[index])
+                    //switch from add to update
+
+                    binding.recycler.adapter!!.notifyItemChanged(index)
+                }
+            })
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        //filters recipes by favorite (true)
-        var liked = RecipeManager.recipes.filter { it.favorite }
-
-        binding.recycler.layoutManager = LinearLayoutManager(requireContext())
-        binding.recycler.adapter = RecipeAdapter(liked, object : RecipeAdapter.RecipeListener {
-                override fun onRecipeClicked(index: Int) {
-                    //pass index
-                    val num = RecipeManager.recipes.indexOf(liked[index])
-                    val bundle = bundleOf("index" to num)
-                    findNavController().navigate(R.id.action_favoritesFragment_to_recipeFragment, bundle)
-                }
-
-            override fun onRecipeLongClicked(index: Int) {
-                liked[index].favorite = !liked[index].favorite
-                if (binding.grid.tag == "white") {
-                    binding.recycler.layoutManager = LinearLayoutManager(requireContext())
-                } else {
-                    binding.recycler.layoutManager = GridLayoutManager(requireContext(), 2)
-                }
-            }
-        })
 
         binding.grid.setOnClickListener {
             if (binding.grid.tag == "white") {

@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -18,6 +20,7 @@ class MyListFragment : Fragment() {
 
     private var _binding: HomeFragmentBinding? = null
     private val binding get() = _binding!!
+    private val viewModel : RecipeViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,35 +29,40 @@ class MyListFragment : Fragment() {
     ): View? {
         _binding = HomeFragmentBinding.inflate(inflater, container, false);
 
-        return binding.root
-    }
+        if (binding.grid.tag == "white") {
+            binding.recycler.layoutManager = LinearLayoutManager(requireContext())
+        } else {
+            binding.recycler.layoutManager = GridLayoutManager(requireContext(), 2)
+        }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        viewModel.getRecipes()?.observe(viewLifecycleOwner) {
+            //filters recipes by internet (false)
+            val mine = it.filter { !it.internet }
 
-        //filters recipes by internet (false)
-        var mine = RecipeManager.recipes.filter { !it.internet }
-        //mine = mine.sortedBy { Recipe -> Recipe.title }
+            binding.recycler.adapter = RecipeAdapter(mine, object : RecipeAdapter.RecipeListener {
 
-        binding.recycler.layoutManager = LinearLayoutManager(requireContext())
-        binding.recycler.adapter =
-            RecipeAdapter(mine, object : RecipeAdapter.RecipeListener {
                 override fun onRecipeClicked(index: Int) {
-                    //pass index and list
-                    val num = RecipeManager.recipes.indexOf(mine[index])
+                    //pass index
+                    val num = it.indexOf(mine[index])
                     val bundle = bundleOf("index" to num)
+                    //val bundle = bundleOf("title" to mine[index].title)
                     findNavController().navigate(R.id.action_myListFragment_to_recipeFragment, bundle)
                 }
 
                 override fun onRecipeLongClicked(index: Int) {
                     mine[index].favorite = !mine[index].favorite
-                    if (binding.grid.tag == "white") {
-                        binding.recycler.layoutManager = LinearLayoutManager(requireContext())
-                    } else {
-                        binding.recycler.layoutManager = GridLayoutManager(requireContext(), 2)
-                    }
+                    viewModel.addRecipe(mine[index])
+                    //switch from add to update
+
+                    binding.recycler.adapter!!.notifyItemChanged(index)
                 }
             })
+        }
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.grid.setOnClickListener {
             if (binding.grid.tag == "white") {
@@ -84,7 +92,10 @@ class MyListFragment : Fragment() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                RecipeManager.remove(viewHolder.layoutPosition)
+                //RecipeManager.remove(viewHolder.layoutPosition)
+                //val list = viewModel.getRecipes()
+                //get the recipe to delete
+                //viewModel.delete(list[viewHolder.layoutPosition])
                 binding.recycler.adapter!!.notifyItemRemoved(viewHolder.layoutPosition)
             }
         }).attachToRecyclerView(binding.recycler)
@@ -95,3 +106,5 @@ class MyListFragment : Fragment() {
         _binding = null
     }
 }
+
+//binding.recycler.adapter!!.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY

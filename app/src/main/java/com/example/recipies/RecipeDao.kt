@@ -1,0 +1,29 @@
+package com.example.recipies
+
+import androidx.lifecycle.LiveData
+import androidx.room.Dao
+import androidx.room.*
+import java.text.FieldPosition
+
+@Dao
+interface RecipeDao {
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addRecipe (recipe: Recipe)
+
+    @Delete
+    fun delete(recipe: Recipe)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun update(vararg recipe: Recipe)
+
+    @Query("SELECT * FROM recipes_table ORDER BY food ASC")
+    fun getRecipes() : LiveData<List<Recipe>>
+
+    @Query("SELECT * FROM recipes_table WHERE food LIKE :title")
+    fun getRecipe(title:String) : Recipe
+}
+
+//what does update do? how does it work?
+//currently using add instead of update
+//order by multiple things, categories...

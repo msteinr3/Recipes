@@ -7,13 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recipies.databinding.RecipeFragmentBinding
 
 class RecipeFragment : Fragment() {
 
     private var _binding: RecipeFragmentBinding? = null
     private val binding get() = _binding!!
+    private val viewModel : RecipeViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,37 +26,35 @@ class RecipeFragment : Fragment() {
     ): View? {
         _binding = RecipeFragmentBinding.inflate(inflater, container, false);
 
+        viewModel.getRecipes()?.observe(viewLifecycleOwner) {
+            val index = arguments?.getInt("index", 0)
+            val title = it[index!!].title
+            val pic = Uri.parse(it[index].photo)
+            val category = it[index].category
+            val ingredients = it[index].ingredients
+            val instructions = it[index].instructions
+
+            binding.title.text = title
+            binding.pic.setImageURI(pic)
+            binding.category.text = category
+            binding.ingredients.text = ingredients
+            binding.instructions.text = instructions
+        }
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val index = arguments?.getInt("index", 0)
-
-        val title = RecipeManager.recipes[index!!].title
-        val pic = Uri.parse(RecipeManager.recipes[index].photo)
-        val category = RecipeManager.recipes[index].category
-        val ingredients = RecipeManager.recipes[index].ingredients
-        val instructions = RecipeManager.recipes[index].instructions
-
-        binding.title.text = title
-        binding.pic.setImageURI(pic)
-        binding.category.text = category
-        binding.ingredients.text = ingredients
-        binding.instructions.text = instructions
-
         binding.edit.setOnClickListener {
             val bundle = bundleOf(
-                ("title" to title),
-                ("pic" to pic),
-                ("category" to category),
-                ("ingredients" to ingredients),
-                ("instructions" to instructions)
+                ("title" to binding.title.text),
+                //("pic" to binding.pic.drawable),
+                ("category" to binding.category.text),
+                ("ingredients" to binding.ingredients.text),
+                ("instructions" to binding.instructions.text)
             )
-            //find index of recipe by title?
-            //val i = RecipeManager.recipes<Recipe>.indexOf(title)
-            //RecipeManager.remove(i)
             findNavController().navigate(R.id.action_recipeFragment_to_addFragment, bundle)
         }
     }
@@ -62,3 +64,22 @@ class RecipeFragment : Fragment() {
         _binding = null
     }
 }
+
+
+/*
+val index = arguments?.getInt("index", 0)
+val rec = viewModel.getRecipe()
+
+val title = rec?.title
+val pic = Uri.parse(rec?.photo)
+val category = rec?.category
+val ingredients = rec?.ingredients
+val instructions = rec?.instructions
+
+binding.title.text = title
+binding.pic.setImageURI(pic)
+binding.category.text = category
+binding.ingredients.text = ingredients
+binding.instructions.text = instructions
+*/
+

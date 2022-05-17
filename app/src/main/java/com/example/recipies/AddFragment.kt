@@ -12,6 +12,7 @@ import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.recipies.databinding.AddFragmentBinding
 import java.lang.StringBuilder
@@ -20,6 +21,7 @@ class AddFragment : Fragment() {
 
     private var _binding: AddFragmentBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: RecipeViewModel by activityViewModels()
     private var imageUri: Uri? = null
 
     private val pickItemLauncher: ActivityResultLauncher<Array<String>> =
@@ -30,6 +32,11 @@ class AddFragment : Fragment() {
                 Intent.FLAG_GRANT_READ_URI_PERMISSION
             )
             imageUri = it
+        }
+
+    private val smallImageCameraLauncher: ActivityResultLauncher<Void> =
+        registerForActivityResult(ActivityResultContracts.TakePicturePreview()) {
+            binding.pic.setImageBitmap(it)
         }
 
     override fun onCreateView(
@@ -65,7 +72,11 @@ class AddFragment : Fragment() {
 
 
         var spinner = ""
-        val adapter = ArrayAdapter.createFromResource(requireContext(), R.array.categories, R.layout.drop_down)
+        val adapter = ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.categories,
+            R.layout.drop_down
+        )
         binding.dropdown.setAdapter(adapter)
         binding.dropdown.setOnItemClickListener { adapterView, view, i, l ->
             spinner = adapterView.getItemAtPosition(i).toString()
@@ -77,10 +88,7 @@ class AddFragment : Fragment() {
         }
 
         binding.camera.setOnClickListener {
-            val i = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            startActivity(i)
-            //save result
-            //binding.pic.setImageURI(imageUri)
+            smallImageCameraLauncher.launch(null)
         }
 
         binding.finishBtn.setOnClickListener {
@@ -89,7 +97,7 @@ class AddFragment : Fragment() {
                 binding.instructions.text.toString().isEmpty() ||
                 spinner.isEmpty() ||
                 imageUri == null
-                    ) {
+            ) {
                 val builder = StringBuilder("Missing info:\n")
 
                 if (binding.title.text.toString().isEmpty()) {
@@ -118,9 +126,8 @@ class AddFragment : Fragment() {
                     favorite = false,
                     internet = false
                 )
-                RecipeManager.add(recipe)
+                viewModel.addRecipe(recipe)
                 findNavController().navigate(R.id.action_addFragment_to_myListFragment)
-                //need to hit back can't hit + icon
             }
         }
     }
