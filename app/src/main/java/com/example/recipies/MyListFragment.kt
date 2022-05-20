@@ -29,11 +29,7 @@ class MyListFragment : Fragment() {
     ): View? {
         _binding = HomeFragmentBinding.inflate(inflater, container, false);
 
-        if (binding.grid.tag == "white") {
-            binding.recycler.layoutManager = LinearLayoutManager(requireContext())
-        } else {
-            binding.recycler.layoutManager = GridLayoutManager(requireContext(), 2)
-        }
+        binding.recycler.layoutManager = GridLayoutManager(requireContext(), 2)
 
         viewModel.getRecipes()?.observe(viewLifecycleOwner) {
             //filters recipes by internet (false)
@@ -60,18 +56,6 @@ class MyListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.grid.setOnClickListener {
-            if (binding.grid.tag == "white") {
-                binding.grid.tag = "yellow"
-                binding.grid.setBackgroundResource(R.color.yellow)
-                binding.recycler.layoutManager = GridLayoutManager(requireContext(), 2)
-            } else {
-                binding.grid.setBackgroundResource(R.color.white)
-                binding.grid.tag = "white"
-                binding.recycler.layoutManager = LinearLayoutManager(requireContext())
-            }
-        }
 
         ItemTouchHelper(object : ItemTouchHelper.Callback() {
             override fun getMovementFlags(

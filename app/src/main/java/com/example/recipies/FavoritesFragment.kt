@@ -27,11 +27,7 @@ class FavoritesFragment : Fragment() {
     ): View? {
         _binding = FavoritesFragmentBinding.inflate(inflater, container,false);
 
-        if (binding.grid.tag == "white") {
-            binding.recycler.layoutManager = LinearLayoutManager(requireContext())
-        } else {
-            binding.recycler.layoutManager = GridLayoutManager(requireContext(), 2)
-        }
+        binding.recycler.layoutManager = GridLayoutManager(requireContext(), 2)
 
         viewModel.getRecipes()?.observe(viewLifecycleOwner) {
             //filters recipes by favorite (true)
@@ -60,15 +56,7 @@ class FavoritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.grid.setOnClickListener {
-            if (binding.grid.tag == "white") {
-                binding.grid.tag = "yellow"
-                binding.grid.setBackgroundResource(R.color.yellow)
-                binding.recycler.layoutManager = GridLayoutManager(requireContext(), 2)
-            } else {
-                binding.grid.setBackgroundResource(R.color.white)
-                binding.grid.tag = "white"
-                binding.recycler.layoutManager = LinearLayoutManager(requireContext())
-            }
+            binding.recycler.layoutManager = GridLayoutManager(requireContext(), 2)
         }
     }
 
