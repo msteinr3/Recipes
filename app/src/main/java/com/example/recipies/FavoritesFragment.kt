@@ -54,10 +54,6 @@ class FavoritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.grid.setOnClickListener {
-            binding.recycler.layoutManager = GridLayoutManager(requireContext(), 2)
-        }
     }
 
     override fun onDestroyView() {
