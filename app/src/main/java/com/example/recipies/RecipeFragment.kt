@@ -47,14 +47,10 @@ class RecipeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val index = arguments?.getInt("index", 0)
+
         binding.edit.setOnClickListener {
-            val bundle = bundleOf(
-                ("title" to binding.title.text),
-                //("pic" to binding.pic.drawable),
-                ("category" to binding.category.text),
-                ("ingredients" to binding.ingredients.text),
-                ("instructions" to binding.instructions.text)
-            )
+            val bundle = bundleOf("index" to index)
             findNavController().navigate(R.id.action_recipeFragment_to_addFragment, bundle)
         }
     }
@@ -64,22 +60,4 @@ class RecipeFragment : Fragment() {
         _binding = null
     }
 }
-
-
-/*
-val index = arguments?.getInt("index", 0)
-val rec = viewModel.getRecipe()
-
-val title = rec?.title
-val pic = Uri.parse(rec?.photo)
-val category = rec?.category
-val ingredients = rec?.ingredients
-val instructions = rec?.instructions
-
-binding.title.text = title
-binding.pic.setImageURI(pic)
-binding.category.text = category
-binding.ingredients.text = ingredients
-binding.instructions.text = instructions
-*/
 

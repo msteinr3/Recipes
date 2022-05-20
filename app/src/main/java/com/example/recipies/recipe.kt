@@ -9,17 +9,17 @@ import androidx.room.PrimaryKey
 import java.net.URI
 
 @Entity(tableName = "recipes_table")
-data class Recipe(
+data class Recipe (
     @ColumnInfo(name = "food")
-    val title: String,
+    var title: String,
     @ColumnInfo(name = "image")
-    val photo: String?,
+    var photo: String?,
     @ColumnInfo(name = "ingr")
-    val ingredients: String,
+    var ingredients: String,
     @ColumnInfo(name = "instr")
-    val instructions: String,
+    var instructions: String,
     @ColumnInfo(name = "cat")
-    val category: String,
+    var category: String,
     @ColumnInfo(name = "like")
     var favorite: Boolean,
     @ColumnInfo(name = "web")
@@ -29,6 +29,5 @@ data class Recipe(
     var id: Int = 0
 }
 
-
 //things to add: video, author...
-//recipes.sortWith(compareBy<Recipe> { it.category}.thenBy { it.title })
+//ID?

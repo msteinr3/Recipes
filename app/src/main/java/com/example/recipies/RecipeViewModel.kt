@@ -2,7 +2,9 @@ package com.example.recipies
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import androidx.room.Query
 import kotlinx.coroutines.launch
 
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
@@ -10,6 +12,12 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
     private var repository = RecipeRepository(application)
 
     fun getRecipes() = repository.getRecipes()
+
+    fun getInternetRecipes() = repository.getInternetRecipes()
+
+    fun getMyRecipes() = repository.getMyRecipes()
+
+    fun getFavorites() = repository.getFavorites()
 
     fun getRecipe(title: String) = repository.getRecipe(title)
 
@@ -30,4 +38,10 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
             repository.update(recipe)
         }
     }
+
+    //fun getID(recipe: Recipe) {
+    //    viewModelScope.launch {
+    //        repository.getID(recipe)
+    //    }
+    //}
 }

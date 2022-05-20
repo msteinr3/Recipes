@@ -36,7 +36,6 @@ class FavoritesFragment : Fragment() {
         viewModel.getRecipes()?.observe(viewLifecycleOwner) {
             //filters recipes by favorite (true)
             val liked = it.filter { it.favorite }
-
             binding.recycler.adapter = RecipeAdapter(liked, object : RecipeAdapter.RecipeListener {
 
                 override fun onRecipeClicked(index: Int) {
@@ -48,8 +47,7 @@ class FavoritesFragment : Fragment() {
 
                 override fun onRecipeLongClicked(index: Int) {
                     liked[index].favorite = !liked[index].favorite
-                    viewModel.addRecipe(liked[index])
-                    //switch from add to update
+                    viewModel.update(liked[index])
 
                     binding.recycler.adapter!!.notifyItemChanged(index)
                 }

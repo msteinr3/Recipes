@@ -38,21 +38,18 @@ class MyListFragment : Fragment() {
         viewModel.getRecipes()?.observe(viewLifecycleOwner) {
             //filters recipes by internet (false)
             val mine = it.filter { !it.internet }
-
             binding.recycler.adapter = RecipeAdapter(mine, object : RecipeAdapter.RecipeListener {
 
                 override fun onRecipeClicked(index: Int) {
                     //pass index
                     val num = it.indexOf(mine[index])
                     val bundle = bundleOf("index" to num)
-                    //val bundle = bundleOf("title" to mine[index].title)
                     findNavController().navigate(R.id.action_myListFragment_to_recipeFragment, bundle)
                 }
 
                 override fun onRecipeLongClicked(index: Int) {
                     mine[index].favorite = !mine[index].favorite
-                    viewModel.addRecipe(mine[index])
-                    //switch from add to update
+                    viewModel.update(mine[index])
 
                     binding.recycler.adapter!!.notifyItemChanged(index)
                 }
@@ -93,10 +90,14 @@ class MyListFragment : Fragment() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 //RecipeManager.remove(viewHolder.layoutPosition)
-                //val list = viewModel.getRecipes()
-                //get the recipe to delete
-                //viewModel.delete(list[viewHolder.layoutPosition])
-                binding.recycler.adapter!!.notifyItemRemoved(viewHolder.layoutPosition)
+                /*
+                viewModel.getRecipes()?.observe(viewLifecycleOwner) {
+                    val mine = it.filter { !it.internet }
+                    val index = it.indexOf(mine[viewHolder.layoutPosition])
+                    viewModel.delete(it[index])
+                    binding.recycler.adapter!!.notifyItemRemoved(viewHolder.layoutPosition)
+                }
+                 */
             }
         }).attachToRecyclerView(binding.recycler)
     }
@@ -106,5 +107,3 @@ class MyListFragment : Fragment() {
         _binding = null
     }
 }
-
-//binding.recycler.adapter!!.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY

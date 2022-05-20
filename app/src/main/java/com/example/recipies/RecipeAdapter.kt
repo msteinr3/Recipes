@@ -24,11 +24,11 @@ class RecipeAdapter(private val recipes: List<Recipe>, private val callback: Rec
         }
 
         override fun onClick(p0: View?) {
-            callback.onRecipeClicked(adapterPosition)
+            callback.onRecipeClicked(layoutPosition)
         }
 
         override fun onLongClick(p0: View?): Boolean {
-            callback.onRecipeLongClicked(adapterPosition)
+            callback.onRecipeLongClicked(layoutPosition)
             return true
         }
 

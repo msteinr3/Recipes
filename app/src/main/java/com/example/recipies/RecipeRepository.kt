@@ -2,6 +2,8 @@ package com.example.recipies
 
 import android.app.Application
 import android.icu.text.CaseMap
+import androidx.lifecycle.LiveData
+import androidx.room.Query
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,7 +29,17 @@ class RecipeRepository(application: Application) {
         recipeDao?.update(recipe)
     }
 
+    //suspend fun getID(recipe: Recipe) {
+    //    recipeDao?.getID(recipe)
+    // }
+
     fun getRecipes() = recipeDao?.getRecipes()
+
+    fun getInternetRecipes() = recipeDao?.getInternetRecipes()
+
+    fun getMyRecipes() = recipeDao?.getMyRecipes()
+
+    fun getFavorites() = recipeDao?.getFavorites()
 
     fun getRecipe(title: String) = recipeDao?.getRecipe(title)
 }

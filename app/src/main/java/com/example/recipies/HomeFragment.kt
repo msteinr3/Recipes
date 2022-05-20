@@ -41,7 +41,6 @@ class HomeFragment : Fragment() {
         viewModel.getRecipes()?.observe(viewLifecycleOwner) {
             //filters recipes by internet (true)
             val internet = it.filter { it.internet }
-
             binding.recycler.adapter = RecipeAdapter(internet, object : RecipeAdapter.RecipeListener {
 
                 override fun onRecipeClicked(index: Int) {
@@ -53,8 +52,7 @@ class HomeFragment : Fragment() {
 
                 override fun onRecipeLongClicked(index: Int) {
                     internet[index].favorite = !internet[index].favorite
-                    viewModel.addRecipe(internet[index])
-                    //switch from add to update
+                    viewModel.update(internet[index])
 
                     binding.recycler.adapter!!.notifyItemChanged(index)
                 }
@@ -71,12 +69,10 @@ class HomeFragment : Fragment() {
                 binding.grid.tag = "yellow"
                 binding.grid.setBackgroundResource(R.color.yellow)
                 binding.recycler.layoutManager = GridLayoutManager(requireContext(), 2)
-                //binding.recycler.adapter = RecipeAdapter(RecipeManager.recipes)
             } else {
                 binding.grid.setBackgroundResource(R.color.white)
                 binding.grid.tag = "white"
                 binding.recycler.layoutManager = LinearLayoutManager(requireContext())
-                //binding.recycler.adapter = RecipeAdapter(RecipeManager.recipes)
             }
         }
     }
@@ -87,15 +83,8 @@ class HomeFragment : Fragment() {
     }
 }
 
-/*
+
  //request internet permission
 //get info from API
-val title = ""
-val photo = ""
-val ingredients = ""
-val instructions = ""
-val recipe = Recipe(title, photo, ingredients, instructions, favorite = false, internet = true)
-RecipeManager.add(recipe)
- */
 //implement searchbar
 
