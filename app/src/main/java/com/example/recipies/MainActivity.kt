@@ -12,6 +12,7 @@ import com.example.recipies.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
+
 //@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -29,4 +30,6 @@ class MainActivity : AppCompatActivity() {
         setupWithNavController(bottomNav, navController)
     }
 }
+
+
 

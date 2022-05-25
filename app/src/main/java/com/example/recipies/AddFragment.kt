@@ -95,7 +95,7 @@ class AddFragment : Fragment() {
         }
 
         binding.camera.setOnClickListener {
-            //smallImageCameraLauncher.launch(null)
+            smallImageCameraLauncher.launch(null)
             /*
             file = File(
                 requireActivity().getExternalFilesDir(
