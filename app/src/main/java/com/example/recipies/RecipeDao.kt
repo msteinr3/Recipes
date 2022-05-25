@@ -34,6 +34,9 @@ interface RecipeDao {
 
     @Query("SELECT * FROM recipes_table WHERE food LIKE :title")
     fun getRecipe(title:String) : Recipe
+
+    @Query("SELECT * FROM recipes_table WHERE `web` = 1 AND `like` = 0")
+    fun getInternetToDelete() : LiveData<List<Recipe>>
 }
 
 //what does update do? how does it work?

@@ -157,6 +157,7 @@ class AddFragment : Fragment() {
                     favorite = false,
                     internet = false
                 )
+                println(imageUri)
                 viewModel.addRecipe(recipe)
                 findNavController().navigate(R.id.action_addFragment_to_myListFragment)
             }
