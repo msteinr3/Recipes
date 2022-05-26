@@ -32,8 +32,6 @@ import java.net.MalformedURLException
 import java.net.URL
 import java.util.concurrent.Executors
 
-
-
 //@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -97,16 +95,16 @@ class MainActivity : AppCompatActivity() {
             val instructions = recipe["instructions"].toString()
             val type = recipe.getJSONArray("dishTypes")
             val imageURL = recipe["image"]
-            val ingrediencts = recipe.getJSONArray("extendedIngredients")
-            var ingredienctsString = "";
-            for (j in 0 until ingrediencts.length()) {
-                val ingredient = ingrediencts.getJSONObject(j)
-                ingredienctsString += "● " + ingredient["original"].toString() + " \n"
+            val ingredients = recipe.getJSONArray("extendedIngredients")
+            var ingredientsString = "";
+            for (j in 0 until ingredients.length()) {
+                val ingredient = ingredients.getJSONObject(j)
+                ingredientsString += "● " + ingredient["original"].toString() + " \n"
             }
             val recipeObj = Recipe(
                 title,
                 "",
-                ingredienctsString,
+                ingredientsString,
                 instructions,
                 "other",
                 favorite = false,
