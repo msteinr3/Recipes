@@ -47,9 +47,9 @@ class RecipeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val index = arguments?.getInt("index", 0)
-
         binding.edit.setOnClickListener {
+
+            val index = arguments?.getInt("index", 0)
             val bundle = bundleOf("index" to index)
             findNavController().navigate(R.id.action_recipeFragment_to_addFragment, bundle)
         }

@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         val bottomNav = binding.bottomNav
         setupWithNavController(bottomNav, navController)
 
-        fetch()
+        //fetch()
     }
 
     var client: OkHttpClient = OkHttpClient();
