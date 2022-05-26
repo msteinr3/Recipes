@@ -1,5 +1,11 @@
 package com.example.recipies
 
+import android.os.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI.setupWithNavController
+import com.example.recipies.databinding.ActivityMainBinding
 import android.app.DownloadManager
 import android.content.ContentValues
 import android.content.Context
@@ -7,14 +13,8 @@ import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.*
 import android.provider.MediaStore
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI.setupWithNavController
-import com.example.recipies.databinding.ActivityMainBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
@@ -43,15 +43,24 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navHostFragment = supportFragmentManager.findFragmentByTag("fragment") as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentByTag("fragment") as NavHostFragment
         navController = navHostFragment.navController
         val bottomNav = binding.bottomNav
         setupWithNavController(bottomNav, navController)
 
         //fetch()
     }
+}
 
+/*
     var client: OkHttpClient = OkHttpClient();
+
+    private fun fetch() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            getRequest()
+        }
+    }
 
     private fun getRequest(): String? {
         var result: String? = null
@@ -72,12 +81,6 @@ class MainActivity : AppCompatActivity() {
             println("Error when executing get request: " + err.localizedMessage)
         }
         return result
-    }
-
-    private fun fetch() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            getRequest()
-        }
     }
 
     private val viewModel: RecipeViewModel by viewModels<RecipeViewModel>()
@@ -191,5 +194,4 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-
-
+*/

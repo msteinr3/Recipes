@@ -1,4 +1,4 @@
-package com.example.recipies
+package com.example.recipies.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater

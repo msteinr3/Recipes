@@ -1,4 +1,4 @@
-package com.example.recipies
+package com.example.recipies.fragments
 
 import android.net.Uri
 import android.os.Bundle
@@ -9,8 +9,8 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.recipies.R
+import com.example.recipies.extra.RecipeViewModel
 import com.example.recipies.databinding.RecipeFragmentBinding
 
 class RecipeFragment : Fragment() {

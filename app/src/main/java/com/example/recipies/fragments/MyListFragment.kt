@@ -1,19 +1,20 @@
-package com.example.recipies
+package com.example.recipies.fragments
 
 import android.icu.lang.UCharacter.IndicPositionalCategory.LEFT
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.recipies.R
+import com.example.recipies.extra.RecipeAdapter
+import com.example.recipies.extra.RecipeViewModel
 import com.example.recipies.databinding.HomeFragmentBinding
 
 class MyListFragment : Fragment() {

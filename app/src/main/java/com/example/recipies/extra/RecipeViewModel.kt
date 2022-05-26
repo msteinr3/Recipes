@@ -1,10 +1,8 @@
-package com.example.recipies
+package com.example.recipies.extra
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import androidx.room.Query
 import kotlinx.coroutines.launch
 
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
@@ -39,9 +37,12 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    //fun getID(recipe: Recipe) {
-    //    viewModelScope.launch {
-    //        repository.getID(recipe)
-    //    }
-    //}
+    /*
+    fun getID(recipe: Recipe) {
+        viewModelScope.launch {
+            repository.getID(recipe)
+        }
+    }
+     */
+
 }

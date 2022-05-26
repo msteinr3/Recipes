@@ -1,10 +1,11 @@
-package com.example.recipies
+package com.example.recipies.extra
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.recipies.R
 import com.example.recipies.databinding.RecipeLayoutBinding
 
 class RecipeAdapter(private val recipes: List<Recipe>, private val callback: RecipeListener) :

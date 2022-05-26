@@ -1,16 +1,9 @@
-package com.example.recipies
+package com.example.recipies.extra
 
 import android.app.Application
-import android.icu.text.CaseMap
-import androidx.lifecycle.LiveData
-import androidx.room.Query
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 
 class RecipeRepository(application: Application) {
-    private val recipeDao:RecipeDao?
+    private val recipeDao: RecipeDao?
 
     init {
         val db = RecipeDatabase.getDatabase(application)

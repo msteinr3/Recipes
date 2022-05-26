@@ -1,4 +1,4 @@
-package com.example.recipies
+package com.example.recipies.extra
 
 import android.content.Context
 import androidx.room.Database

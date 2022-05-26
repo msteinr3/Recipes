@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.example.recipies.FavoritesFragment"
+        android:name="com.example.recipies.fragments.FavoritesFragment"
         android:label="favorites_fragment"
         tools:layout="@layout/favorites_fragment" >
 
@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.recipies.HomeFragment"
+        android:name="com.example.recipies.fragments.HomeFragment"
         android:label="home_fragment"
         tools:layout="@layout/home_fragment" >
 
@@ -29,13 +29,13 @@
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.recipies.SettingsFragment"
+        android:name="com.example.recipies.fragments.SettingsFragment"
         android:label="settings_fragment"
         tools:layout="@layout/settings_fragment" />
 
     <fragment
         android:id="@+id/addFragment"
-        android:name="com.example.recipies.AddFragment"
+        android:name="com.example.recipies.fragments.AddFragment"
         android:label="add_fragment"
         tools:layout="@layout/add_fragment" >
         <action
@@ -45,7 +45,7 @@
 
     <fragment
         android:id="@+id/myListFragment"
-        android:name="com.example.recipies.MyListFragment"
+        android:name="com.example.recipies.fragments.MyListFragment"
         android:label="my_list_fragment"
         tools:layout="@layout/my_list_fragment" >
         <action
@@ -54,7 +54,7 @@
     </fragment>
     <fragment
         android:id="@+id/recipeFragment"
-        android:name="com.example.recipies.RecipeFragment"
+        android:name="com.example.recipies.fragments.RecipeFragment"
         android:label="recipe_fragment"
         tools:layout="@layout/recipe_fragment" >
         <action
