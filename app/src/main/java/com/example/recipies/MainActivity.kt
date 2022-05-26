@@ -95,6 +95,10 @@ class MainActivity : AppCompatActivity() {
             val title = recipe["title"].toString()
             val instructions = recipe["instructions"].toString()
             val type = recipe.getJSONArray("dishTypes")
+            var typeValue = "";
+            if (type.length() > 0) {
+                typeValue = type[0].toString()
+            }
             val imageURL = recipe["image"]
             val ingrediencts = recipe.getJSONArray("extendedIngredients")
             var ingredienctsString = "";
@@ -107,7 +111,7 @@ class MainActivity : AppCompatActivity() {
                 "",
                 ingredienctsString,
                 instructions,
-                "other",
+                typeValue,
                 favorite = false,
                 internet = true
             )
@@ -183,7 +187,7 @@ class MainActivity : AppCompatActivity() {
         }
         fos?.use {
             bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, it)
-            Toast.makeText(this , "Saved to Gallery" , Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this , "Saved to Gallery" , Toast.LENGTH_SHORT).show()
         }
     }
 }
