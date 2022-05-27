@@ -1,4 +1,4 @@
-package com.example.recipies.fragments
+package com.example.recipies.ui
 
 import android.content.Intent
 import android.net.Uri
@@ -18,10 +18,12 @@ import com.example.recipies.R
 import com.example.recipies.extra.Recipe
 import com.example.recipies.extra.RecipeViewModel
 import com.example.recipies.databinding.AddFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.lang.StringBuilder
 
-class AddFragment : Fragment() {
+@AndroidEntryPoint
+class AddRecipe : Fragment() {
 
     private var _binding: AddFragmentBinding? = null
     private val binding get() = _binding!!
@@ -160,7 +162,7 @@ class AddFragment : Fragment() {
                 )
                 println(imageUri)
                 viewModel.addRecipe(recipe)
-                findNavController().navigate(R.id.action_addFragment_to_myListFragment)
+                findNavController().navigate(R.id.action_addRecipe_to_myList)
             }
         }
     }

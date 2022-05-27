@@ -1,4 +1,4 @@
-package com.example.recipies.fragments
+package com.example.recipies.ui
 
 import android.icu.lang.UCharacter.IndicPositionalCategory.LEFT
 import android.os.Bundle
@@ -16,8 +16,10 @@ import com.example.recipies.R
 import com.example.recipies.extra.RecipeAdapter
 import com.example.recipies.extra.RecipeViewModel
 import com.example.recipies.databinding.HomeFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class MyListFragment : Fragment() {
+@AndroidEntryPoint
+class MyList : Fragment() {
 
     private var _binding: HomeFragmentBinding? = null
     private val binding get() = _binding!!
@@ -41,7 +43,7 @@ class MyListFragment : Fragment() {
                     //pass index
                     val num = it.indexOf(mine[index])
                     val bundle = bundleOf("index" to num)
-                    findNavController().navigate(R.id.action_myListFragment_to_recipeFragment, bundle)
+                    findNavController().navigate(R.id.action_myList_to_singleRecipe, bundle)
                 }
 
                 override fun onRecipeLongClicked(index: Int) {

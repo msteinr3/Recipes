@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity() {
                 val ingredient = ingredients.getJSONObject(j)
                 ingredientsString += "● " + ingredient["original"].toString() + " \n"
             }
-            val recipeObj = Recipe(
+            val recipeObj = wrong(
                 title,
                 "",
                 ingredientsString,
@@ -166,7 +166,7 @@ class MainActivity : AppCompatActivity() {
         return null
     }
 
-    private fun mSaveMediaToStorage(bitmap: Bitmap?, recipeObj: Recipe, viewModel: RecipeViewModel) {
+    private fun mSaveMediaToStorage(bitmap: Bitmap?, recipeObj: wrong, viewModel: RecipeViewModel) {
         val filename = "${System.currentTimeMillis()}.jpg"
         var fos: OutputStream? = null
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

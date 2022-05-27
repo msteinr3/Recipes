@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-class RecipeViewModel(application: Application) : AndroidViewModel(application) {
+class AllRecipesViewModel(application: Application) : AndroidViewModel(application) {
 
     private var repository = RecipeRepository(application)
 
@@ -43,6 +43,6 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
 
 /*
 @HiltViewModel
-class SingleCharacterViewModel @Inject constructor() : ViewModel() {
+class AllCharactersViewModel @Inject constructor() : ViewModel() {
 }
  */

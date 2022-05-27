@@ -22,7 +22,7 @@ class RecipeRepository(application: Application) {
         recipeDao?.update(recipe)
     }
 
-    //suspend fun getID(recipe: Recipe) {
+    //suspend fun getID(recipe: wrong) {
     //    recipeDao?.getID(recipe)
     // }
 
@@ -36,3 +36,29 @@ class RecipeRepository(application: Application) {
 
     fun getRecipe(title: String) = recipeDao?.getRecipe(title)
 }
+
+/*
+import il.co.syntax.finalkotlinproject.data.loca_db.CharacterDao
+import il.co.syntax.finalkotlinproject.data.remote_db.CharacterRemoteDataSource
+import com.example.recipies.utils.performFetchingAndSaving
+import javax.inject.Inject
+
+class CharacterRepository @Inject constructor(
+    private val  remoteDataSource: CharacterRemoteDataSource,
+    private val localDataSource: CharacterDao
+){
+
+    fun getCharacters() = performFetchingAndSaving(
+        {localDataSource.getAllCharacters()},
+        {remoteDataSource.getCharacters()},
+        {localDataSource.insertCharacters(it.results)}
+    )
+
+    fun getCharacter(id : Int) = performFetchingAndSaving(
+        {localDataSource.getCharacter(id)},
+        {remoteDataSource.getCharacter(id)},
+        {localDataSource.insertCharacter(it)}
+    )
+
+}
+ */

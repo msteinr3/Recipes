@@ -3,62 +3,56 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/addRecipe">
 
     <fragment
-        android:id="@+id/favoritesFragment"
-        android:name="com.example.recipies.fragments.FavoritesFragment"
-        android:label="favorites_fragment"
-        tools:layout="@layout/favorites_fragment" >
-
-        <action
-            android:id="@+id/action_favoritesFragment_to_recipeFragment"
-            app:destination="@id/recipeFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.recipies.fragments.HomeFragment"
-        android:label="home_fragment"
-        tools:layout="@layout/home_fragment" >
-
-        <action
-            android:id="@+id/action_homeFragment_to_recipeFragment"
-            app:destination="@id/recipeFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.example.recipies.fragments.SettingsFragment"
+        android:id="@+id/settings"
+        android:name="com.example.recipies.ui.Settings"
         android:label="settings_fragment"
         tools:layout="@layout/settings_fragment" />
-
     <fragment
-        android:id="@+id/addFragment"
-        android:name="com.example.recipies.fragments.AddFragment"
+        android:id="@+id/addRecipe"
+        android:name="com.example.recipies.ui.AddRecipe"
         android:label="add_fragment"
         tools:layout="@layout/add_fragment" >
         <action
-            android:id="@+id/action_addFragment_to_myListFragment"
-            app:destination="@id/myListFragment" />
+            android:id="@+id/action_addRecipe_to_myList"
+            app:destination="@id/myList" />
     </fragment>
-
     <fragment
-        android:id="@+id/myListFragment"
-        android:name="com.example.recipies.fragments.MyListFragment"
+        android:id="@+id/favorites"
+        android:name="com.example.recipies.ui.Favorites"
+        android:label="favorites_fragment"
+        tools:layout="@layout/favorites_fragment" >
+        <action
+            android:id="@+id/action_favorites_to_singleRecipe"
+            app:destination="@id/singleRecipe" />
+    </fragment>
+    <fragment
+        android:id="@+id/home"
+        android:name="com.example.recipies.ui.Home"
+        android:label="home_fragment"
+        tools:layout="@layout/home_fragment" >
+        <action
+            android:id="@+id/action_home_to_singleRecipe"
+            app:destination="@id/singleRecipe" />
+    </fragment>
+    <fragment
+        android:id="@+id/myList"
+        android:name="com.example.recipies.ui.MyList"
         android:label="my_list_fragment"
         tools:layout="@layout/my_list_fragment" >
         <action
-            android:id="@+id/action_myListFragment_to_recipeFragment"
-            app:destination="@id/recipeFragment" />
+            android:id="@+id/action_myList_to_singleRecipe"
+            app:destination="@id/singleRecipe" />
     </fragment>
     <fragment
-        android:id="@+id/recipeFragment"
-        android:name="com.example.recipies.fragments.RecipeFragment"
+        android:id="@+id/singleRecipe"
+        android:name="com.example.recipies.ui.SingleRecipe"
         android:label="recipe_fragment"
         tools:layout="@layout/recipe_fragment" >
         <action
-            android:id="@+id/action_recipeFragment_to_addFragment"
-            app:destination="@id/addFragment" />
+            android:id="@+id/action_singleRecipe_to_addRecipe"
+            app:destination="@id/addRecipe" />
     </fragment>
 </navigation>

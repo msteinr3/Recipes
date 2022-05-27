@@ -1,4 +1,4 @@
-package com.example.recipies.fragments
+package com.example.recipies.ui
 
 import android.net.Uri
 import android.os.Bundle
@@ -12,8 +12,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.recipies.R
 import com.example.recipies.extra.RecipeViewModel
 import com.example.recipies.databinding.RecipeFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class RecipeFragment : Fragment() {
+@AndroidEntryPoint
+class SingleRecipe : Fragment() {
 
     private var _binding: RecipeFragmentBinding? = null
     private val binding get() = _binding!!
@@ -51,7 +53,7 @@ class RecipeFragment : Fragment() {
 
             val index = arguments?.getInt("index", 0)
             val bundle = bundleOf("index" to index)
-            findNavController().navigate(R.id.action_recipeFragment_to_addFragment, bundle)
+            findNavController().navigate(R.id.action_singleRecipe_to_addRecipe, bundle)
         }
     }
 

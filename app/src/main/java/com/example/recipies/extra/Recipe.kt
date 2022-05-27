@@ -8,20 +8,26 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.net.URI
 
-@Entity(tableName = "recipes_table")
+@Entity(tableName = "recipes")
 data class Recipe (
     @ColumnInfo(name = "food")
     var title: String,
+
     @ColumnInfo(name = "image")
     var photo: String?,
+
     @ColumnInfo(name = "ingr")
     var ingredients: String,
+
     @ColumnInfo(name = "instr")
     var instructions: String,
+
     @ColumnInfo(name = "cat")
     var category: String,
+
     @ColumnInfo(name = "like")
     var favorite: Boolean,
+
     @ColumnInfo(name = "web")
     var internet: Boolean
 ) {

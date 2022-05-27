@@ -1,4 +1,4 @@
-package com.example.recipies.fragments
+package com.example.recipies.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,11 +12,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.recipies.R
 import com.example.recipies.extra.RecipeAdapter
 import com.example.recipies.extra.RecipeViewModel
-import com.example.recipies.databinding.FavoritesFragmentBinding
+import com.example.recipies.databinding.HomeFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class FavoritesFragment : Fragment() {
+@AndroidEntryPoint
+class Home : Fragment() {
 
-    private var _binding: FavoritesFragmentBinding? = null
+    private var _binding: HomeFragmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel : RecipeViewModel by activityViewModels()
 
@@ -25,25 +27,25 @@ class FavoritesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FavoritesFragmentBinding.inflate(inflater, container,false);
+        _binding = HomeFragmentBinding.inflate(inflater, container, false);
 
         binding.recycler.layoutManager = GridLayoutManager(requireContext(), 2)
 
         viewModel.getRecipes()?.observe(viewLifecycleOwner) {
-            //filters recipes by favorite (true)
-            val liked = it.filter { it.favorite }
-            binding.recycler.adapter = RecipeAdapter(liked, object : RecipeAdapter.RecipeListener {
+            //filters recipes by internet (true)
+            val internet = it.filter { it.internet }
+            binding.recycler.adapter = RecipeAdapter(internet, object : RecipeAdapter.RecipeListener {
 
                 override fun onRecipeClicked(index: Int) {
                     //pass index
-                    val num = it.indexOf(liked[index])
+                    val num = it.indexOf(internet[index])
                     val bundle = bundleOf("index" to num)
-                    findNavController().navigate(R.id.action_favoritesFragment_to_recipeFragment, bundle)
+                    findNavController().navigate(R.id.action_home_to_singleRecipe, bundle)
                 }
 
                 override fun onRecipeLongClicked(index: Int) {
-                    liked[index].favorite = !liked[index].favorite
-                    viewModel.update(liked[index])
+                    internet[index].favorite = !internet[index].favorite
+                    viewModel.update(internet[index])
 
                     binding.recycler.adapter!!.notifyItemChanged(index)
                 }
@@ -54,6 +56,10 @@ class FavoritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.more.setOnClickListener {
+
+        }
     }
 
     override fun onDestroyView() {

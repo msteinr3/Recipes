@@ -1,4 +1,4 @@
-package com.example.recipies.fragments
+package com.example.recipies.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.recipies.databinding.SettingsFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class SettingsFragment : Fragment() {
+@AndroidEntryPoint
+class Settings : Fragment() {
 
     private var _binding: SettingsFragmentBinding? = null
     private val binding get() = _binding!!
