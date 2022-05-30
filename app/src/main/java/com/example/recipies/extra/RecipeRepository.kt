@@ -1,7 +1,53 @@
 package com.example.recipies.extra
 
 import android.app.Application
+import com.example.recipies.utils.performFetchingAndSaving
+import javax.inject.Inject
 
+class RecipeRepository @Inject constructor(
+    private val  remoteDataSource: RecipeRemoteDataSource,
+    private val localDataSource: RecipeDao
+){
+
+    fun getRecipes() = performFetchingAndSaving(
+        {localDataSource.getRecipes()},
+        {remoteDataSource.getRecipes()},
+        {localDataSource.addRecipes(it.results)}
+    )
+
+    fun getInternetRecipes() = performFetchingAndSaving(
+        {localDataSource.getInternetRecipes()},
+        {remoteDataSource.getInternetRecipes()},
+        {localDataSource.addRecipes(it.results)}
+    )
+    //only remote?
+
+    fun getMyRecipes() = performFetchingAndSaving(
+        {localDataSource.getMyRecipes()},
+        {remoteDataSource.getMyRecipes()},
+        {localDataSource.addRecipes(it.results)}
+    )
+    //only only local?
+
+    fun getFavoriteRecipes() = performFetchingAndSaving(
+        {localDataSource.getFavoriteRecipes()},
+        {remoteDataSource.getFavoriteRecipes()},
+        {localDataSource.addRecipes(it.results)}
+    )
+    //only liked?
+
+    fun getRecipe(id : Int) = performFetchingAndSaving(
+        {localDataSource.getRecipe(id)},
+        {remoteDataSource.getRecipe(id)},
+        {localDataSource.addRecipe(it)}
+    )
+
+    suspend fun addRecipe(recipe: Recipe) {
+        localDataSource.addRecipe(recipe)
+    }
+}
+
+/*
 class RecipeRepository(application: Application) {
     private val recipeDao: RecipeDao?
 
@@ -37,28 +83,4 @@ class RecipeRepository(application: Application) {
     fun getRecipe(title: String) = recipeDao?.getRecipe(title)
 }
 
-/*
-import il.co.syntax.finalkotlinproject.data.loca_db.CharacterDao
-import il.co.syntax.finalkotlinproject.data.remote_db.CharacterRemoteDataSource
-import com.example.recipies.utils.performFetchingAndSaving
-import javax.inject.Inject
-
-class CharacterRepository @Inject constructor(
-    private val  remoteDataSource: CharacterRemoteDataSource,
-    private val localDataSource: CharacterDao
-){
-
-    fun getCharacters() = performFetchingAndSaving(
-        {localDataSource.getAllCharacters()},
-        {remoteDataSource.getCharacters()},
-        {localDataSource.insertCharacters(it.results)}
-    )
-
-    fun getCharacter(id : Int) = performFetchingAndSaving(
-        {localDataSource.getCharacter(id)},
-        {remoteDataSource.getCharacter(id)},
-        {localDataSource.insertCharacter(it)}
-    )
-
-}
  */

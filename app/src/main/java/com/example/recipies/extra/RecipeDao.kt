@@ -29,10 +29,11 @@ interface RecipeDao {
     fun getMyRecipes() : LiveData<List<Recipe>>
 
     @Query("SELECT * FROM recipes WHERE `like` = 1 ORDER BY food ASC")
-    fun getFavorites() : LiveData<List<Recipe>>
+    fun getFavoriteRecipes() : LiveData<List<Recipe>>
 
-    @Query("SELECT * FROM recipes WHERE food LIKE :title")
-    fun getRecipe(title:String) : Recipe
+    @Query("SELECT * FROM recipes id = :id")
+    fun getRecipe(id : Int) : LiveData<Recipe>
+
 
     //@Query("SELECT * FROM recipes WHERE `web` = 1 AND `like` = 0")
     //fun getInternetToDelete() : LiveData<List<wrong>>

@@ -12,12 +12,14 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.recipies.R
 import com.example.recipies.extra.Recipe
 import com.example.recipies.extra.RecipeViewModel
 import com.example.recipies.databinding.AddFragmentBinding
+import com.example.recipies.extra.AllRecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.lang.StringBuilder
@@ -27,9 +29,11 @@ class AddRecipe : Fragment() {
 
     private var _binding: AddFragmentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: RecipeViewModel by activityViewModels()
+    private val viewModel : RecipeViewModel by viewModels()
+    private val allViewModel : AllRecipesViewModel by viewModels()
+
     private var imageUri: Uri? = null
-    private var index: Int? = null
+    private var id: Int? = null
     private lateinit var spinner : String
     private lateinit var file: File
 
@@ -62,7 +66,7 @@ class AddRecipe : Fragment() {
     ): View? {
         _binding = AddFragmentBinding.inflate(inflater, container, false);
 
-        index = arguments?.getInt("index")
+        id = arguments?.getInt("id")
         return binding.root
     }
 
@@ -71,8 +75,11 @@ class AddRecipe : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (index != null) {
-            viewModel.getRecipes()?.observe(viewLifecycleOwner) {
+        /*
+        if (id != null) {
+            //val recipe : Recipe = viewModel._recipe(id)
+            viewModel.recipes.observe(viewLifecycleOwner) {
+
                 binding.title.text = it[index!!].title.toEditable()
                 imageUri = Uri.parse(it[index!!].photo)
                 binding.pic.setImageURI(imageUri)
@@ -81,6 +88,11 @@ class AddRecipe : Fragment() {
                 binding.instructions.text = it[index!!].instructions.toEditable()
             }
         }
+        //get id from bundle
+        //use id to get recipe object
+        //parse info from recipe
+
+         */
 
         val adapter = ArrayAdapter.createFromResource(
             requireContext(),
@@ -136,22 +148,9 @@ class AddRecipe : Fragment() {
                 }
                 Toast.makeText(requireContext(), builder.toString(), Toast.LENGTH_LONG).show()
 
-                /*
-            } else if (index != null) {
-
-                viewModel.getRecipes()?.observe(viewLifecycleOwner) {
-                    it[index!!].title = binding.title.text.toString()
-                    it[index!!].photo = imageUri.toString()
-                    it[index!!].ingredients = binding.ingredients.text.toString()
-                    it[index!!].instructions = binding.instructions.text.toString()
-                    it[index!!].category = spinner
-
-                    viewModel.update(it[index!!])
-                }
-                 */
-
             } else {
                 val recipe = Recipe(
+                    0,
                     binding.title.text.toString(),
                     imageUri.toString(),
                     binding.ingredients.text.toString(),
@@ -161,7 +160,7 @@ class AddRecipe : Fragment() {
                     internet = false
                 )
                 println(imageUri)
-                viewModel.addRecipe(recipe)
+                allViewModel.addRecipe(recipe)
                 findNavController().navigate(R.id.action_addRecipe_to_myList)
             }
         }
@@ -173,3 +172,16 @@ class AddRecipe : Fragment() {
     }
 }
 
+/*
+} else if (index != null) {
+
+viewModel.getRecipes()?.observe(viewLifecycleOwner) {
+    it[index!!].title = binding.title.text.toString()
+    it[index!!].photo = imageUri.toString()
+    it[index!!].ingredients = binding.ingredients.text.toString()
+    it[index!!].instructions = binding.instructions.text.toString()
+    it[index!!].category = spinner
+
+    viewModel.update(it[index!!])
+}
+ */

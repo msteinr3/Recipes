@@ -1,13 +1,29 @@
 package com.example.recipies.extra
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
+class AllRecipesViewModel @Inject constructor(recipeRepository: RecipeRepository, id : Int) : ViewModel() {
+    var recipe = recipeRepository.getRecipe(id)
+    val recipes = recipeRepository.getRecipes()
+    val internetRecipes = recipeRepository.getInternetRecipes()
+    val myRecipes = recipeRepository.getRecipes()
+    val favoriteRecipes = recipeRepository.getRecipes()
+
+    private var repository = recipeRepository
+
+    fun addRecipe(recipe: Recipe) {
+        viewModelScope.launch {
+            repository.addRecipe(recipe)
+        }
+    }
+}
+
+/*
 class AllRecipesViewModel(application: Application) : AndroidViewModel(application) {
 
     private var repository = RecipeRepository(application)

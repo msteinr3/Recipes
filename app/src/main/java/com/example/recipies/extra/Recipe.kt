@@ -10,6 +10,9 @@ import java.net.URI
 
 @Entity(tableName = "recipes")
 data class Recipe (
+    @PrimaryKey
+    val id : Int,
+
     @ColumnInfo(name = "food")
     var title: String,
 
@@ -31,8 +34,6 @@ data class Recipe (
     @ColumnInfo(name = "web")
     var internet: Boolean
 ) {
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
 }
 
 //things to add: video, author...
