@@ -11,18 +11,16 @@ import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.recipies.R
-import com.example.recipies.extra.Recipe
-import com.example.recipies.extra.RecipeViewModel
 import com.example.recipies.databinding.AddFragmentBinding
 import com.example.recipies.extra.AllRecipesViewModel
+import com.example.recipies.extra.Recipe
+import com.example.recipies.extra.RecipeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
-import java.lang.StringBuilder
 
 @AndroidEntryPoint
 class AddRecipe : Fragment() {
@@ -161,7 +159,7 @@ class AddRecipe : Fragment() {
                 )
                 println(imageUri)
                 allViewModel.addRecipe(recipe)
-                findNavController().navigate(R.id.action_addRecipe_to_myList)
+                findNavController().navigate(R.id.action_addRecipe_to_allRecipes)
             }
         }
     }

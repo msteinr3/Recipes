@@ -22,12 +22,6 @@ interface RecipeDao {
     @Query("SELECT * FROM recipes ORDER BY food ASC")
     fun getRecipes() : LiveData<List<Recipe>>
 
-    @Query("SELECT * FROM recipes WHERE web = 1 ORDER BY food ASC")
-    fun getInternetRecipes() : LiveData<List<Recipe>>
-
-    @Query("SELECT * FROM recipes WHERE web = 0 ORDER BY food ASC")
-    fun getMyRecipes() : LiveData<List<Recipe>>
-
     @Query("SELECT * FROM recipes WHERE `like` = 1 ORDER BY food ASC")
     fun getFavoriteRecipes() : LiveData<List<Recipe>>
 
@@ -41,3 +35,11 @@ interface RecipeDao {
 
 //what does update do? how does it work?
 //edit recipe and update instead of adding new
+
+/*
+    @Query("SELECT * FROM recipes WHERE web = 1 ORDER BY food ASC")
+    fun getInternetRecipes() : LiveData<List<Recipe>>
+
+    @Query("SELECT * FROM recipes WHERE web = 0 ORDER BY food ASC")
+    fun getMyRecipes() : LiveData<List<Recipe>>
+ */

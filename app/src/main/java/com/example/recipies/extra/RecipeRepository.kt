@@ -15,6 +15,21 @@ class RecipeRepository @Inject constructor(
         {localDataSource.addRecipes(it.results)}
     )
 
+    fun getFavoriteRecipes() = localDataSource.getFavoriteRecipes()
+
+    fun getRecipe(id : Int) = performFetchingAndSaving(
+        {localDataSource.getRecipe(id)},
+        {remoteDataSource.getRecipe(id)},
+        {localDataSource.addRecipe(it)}
+    )
+
+    suspend fun addRecipe(recipe: Recipe) {
+        localDataSource.addRecipe(recipe)
+    }
+}
+
+
+/*
     fun getInternetRecipes() = performFetchingAndSaving(
         {localDataSource.getInternetRecipes()},
         {remoteDataSource.getInternetRecipes()},
@@ -29,23 +44,7 @@ class RecipeRepository @Inject constructor(
     )
     //only only local?
 
-    fun getFavoriteRecipes() = performFetchingAndSaving(
-        {localDataSource.getFavoriteRecipes()},
-        {remoteDataSource.getFavoriteRecipes()},
-        {localDataSource.addRecipes(it.results)}
-    )
-    //only liked?
-
-    fun getRecipe(id : Int) = performFetchingAndSaving(
-        {localDataSource.getRecipe(id)},
-        {remoteDataSource.getRecipe(id)},
-        {localDataSource.addRecipe(it)}
-    )
-
-    suspend fun addRecipe(recipe: Recipe) {
-        localDataSource.addRecipe(recipe)
-    }
-}
+ */
 
 /*
 class RecipeRepository(application: Application) {

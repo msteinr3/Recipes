@@ -10,8 +10,6 @@ import javax.inject.Inject
 class AllRecipesViewModel @Inject constructor(recipeRepository: RecipeRepository, id : Int) : ViewModel() {
     var recipe = recipeRepository.getRecipe(id)
     val recipes = recipeRepository.getRecipes()
-    val internetRecipes = recipeRepository.getInternetRecipes()
-    val myRecipes = recipeRepository.getRecipes()
     val favoriteRecipes = recipeRepository.getRecipes()
 
     private var repository = recipeRepository

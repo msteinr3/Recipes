@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/addRecipe">
+    app:startDestination="@id/allRecipes">
 
     <fragment
         android:id="@+id/settings"
@@ -14,45 +14,36 @@
         android:id="@+id/addRecipe"
         android:name="com.example.recipies.ui.AddRecipe"
         android:label="add_fragment"
-        tools:layout="@layout/add_fragment" >
+        tools:layout="@layout/add_fragment">
         <action
-            android:id="@+id/action_addRecipe_to_myList"
-            app:destination="@id/myList" />
+            android:id="@+id/action_addRecipe_to_allRecipes"
+            app:destination="@id/allRecipes" />
     </fragment>
     <fragment
         android:id="@+id/favorites"
         android:name="com.example.recipies.ui.Favorites"
         android:label="favorites_fragment"
-        tools:layout="@layout/favorites_fragment" >
+        tools:layout="@layout/favorites_fragment">
         <action
             android:id="@+id/action_favorites_to_singleRecipe"
-            app:destination="@id/singleRecipe" />
-    </fragment>
-    <fragment
-        android:id="@+id/home"
-        android:name="com.example.recipies.ui.Home"
-        android:label="home_fragment"
-        tools:layout="@layout/home_fragment" >
-        <action
-            android:id="@+id/action_home_to_singleRecipe"
-            app:destination="@id/singleRecipe" />
-    </fragment>
-    <fragment
-        android:id="@+id/myList"
-        android:name="com.example.recipies.ui.MyList"
-        android:label="my_list_fragment"
-        tools:layout="@layout/my_list_fragment" >
-        <action
-            android:id="@+id/action_myList_to_singleRecipe"
             app:destination="@id/singleRecipe" />
     </fragment>
     <fragment
         android:id="@+id/singleRecipe"
         android:name="com.example.recipies.ui.SingleRecipe"
         android:label="recipe_fragment"
-        tools:layout="@layout/recipe_fragment" >
+        tools:layout="@layout/recipe_fragment">
         <action
             android:id="@+id/action_singleRecipe_to_addRecipe"
             app:destination="@id/addRecipe" />
+    </fragment>
+    <fragment
+        android:id="@+id/allRecipes"
+        android:name="com.example.recipies.ui.AllRecipes"
+        android:label="all_recipes"
+        tools:layout="@layout/all_recipes">
+        <action
+            android:id="@+id/action_allRecipes_to_singleRecipe"
+            app:destination="@id/singleRecipe" />
     </fragment>
 </navigation>

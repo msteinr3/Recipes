@@ -7,15 +7,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.recipies.R
-import com.example.recipies.extra.RecipeAdapter
-import com.example.recipies.extra.RecipeViewModel
 import com.example.recipies.databinding.FavoritesFragmentBinding
 import com.example.recipies.extra.AllRecipesViewModel
+import com.example.recipies.extra.RecipeAdapter
 import com.example.recipies.utils.Loading
 import com.example.recipies.utils.Success
 import dagger.hilt.android.AndroidEntryPoint
@@ -64,7 +62,7 @@ class Favorites : Fragment(), RecipeAdapter.RecipeItemListener {
     }
 
     override fun onRecipeClick(recipeId: Int) {
-        findNavController().navigate(R.id.action_myList_to_singleRecipe,
+        findNavController().navigate(R.id.action_favorites_to_singleRecipe,
             bundleOf("id" to recipeId))
     }
 
