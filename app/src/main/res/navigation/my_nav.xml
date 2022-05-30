@@ -32,7 +32,7 @@
         android:id="@+id/singleRecipe"
         android:name="com.example.recipies.ui.SingleRecipe"
         android:label="recipe_fragment"
-        tools:layout="@layout/recipe_fragment">
+        tools:layout="@layout/single_recipe">
         <action
             android:id="@+id/action_singleRecipe_to_addRecipe"
             app:destination="@id/addRecipe" />

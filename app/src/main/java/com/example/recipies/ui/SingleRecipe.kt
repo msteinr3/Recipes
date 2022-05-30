@@ -1,6 +1,5 @@
 package com.example.recipies.ui
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,14 +7,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.recipies.R
-import com.example.recipies.extra.RecipeViewModel
-import com.example.recipies.databinding.RecipeFragmentBinding
+import com.example.recipies.databinding.SingleRecipeBinding
 import com.example.recipies.extra.Recipe
+import com.example.recipies.extra.RecipeViewModel
 import com.example.recipies.utils.Loading
 import com.example.recipies.utils.Success
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SingleRecipe : Fragment() {
 
-    private var _binding: RecipeFragmentBinding? = null
+    private var _binding: SingleRecipeBinding? = null
     private val binding get() = _binding!!
     private val viewModel : RecipeViewModel by viewModels()
 
@@ -32,7 +30,7 @@ class SingleRecipe : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = RecipeFragmentBinding.inflate(inflater, container, false);
+        _binding = SingleRecipeBinding.inflate(inflater, container, false);
 
 
         return binding.root
@@ -46,11 +44,11 @@ class SingleRecipe : Fragment() {
                 is Success -> {
                     binding.progressBar.visibility = View.GONE
                     updateRecipe(it.status.data!!)
-                    binding.characterCl.visibility = View.VISIBLE
+                    binding.recipeCl.visibility = View.VISIBLE
                 }
                 is Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
-                    binding.characterCl.visibility = View.GONE
+                    binding.recipeCl.visibility = View.GONE
                 }
                 is Error -> {
                     binding.progressBar.visibility = View.GONE
@@ -64,8 +62,8 @@ class SingleRecipe : Fragment() {
         }
 
         binding.edit.setOnClickListener {
-            val index = arguments?.getInt("index", 0)
-            val bundle = bundleOf("index" to index)
+            val id = arguments?.getInt("id")
+            val bundle = bundleOf("id" to id)
             findNavController().navigate(R.id.action_singleRecipe_to_addRecipe, bundle)
         }
     }

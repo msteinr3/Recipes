@@ -7,7 +7,8 @@ import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -19,6 +20,8 @@ import com.example.recipies.databinding.AddFragmentBinding
 import com.example.recipies.extra.AllRecipesViewModel
 import com.example.recipies.extra.Recipe
 import com.example.recipies.extra.RecipeViewModel
+import com.example.recipies.utils.Loading
+import com.example.recipies.utils.Success
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 
@@ -30,8 +33,8 @@ class AddRecipe : Fragment() {
     private val viewModel : RecipeViewModel by viewModels()
     private val allViewModel : AllRecipesViewModel by viewModels()
 
+    private var id : Int? = null
     private var imageUri: Uri? = null
-    private var id: Int? = null
     private lateinit var spinner : String
     private lateinit var file: File
 
@@ -64,33 +67,38 @@ class AddRecipe : Fragment() {
     ): View? {
         _binding = AddFragmentBinding.inflate(inflater, container, false);
 
-        id = arguments?.getInt("id")
         return binding.root
     }
-
-    private fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /*
-        if (id != null) {
-            //val recipe : Recipe = viewModel._recipe(id)
-            viewModel.recipes.observe(viewLifecycleOwner) {
+        id = arguments?.getInt("id")
 
-                binding.title.text = it[index!!].title.toEditable()
-                imageUri = Uri.parse(it[index!!].photo)
-                binding.pic.setImageURI(imageUri)
-                //category = it[index!!].category
-                binding.ingredients.text = it[index!!].ingredients.toEditable()
-                binding.instructions.text = it[index!!].instructions.toEditable()
+        if (id != null) {
+            viewModel.recipe.observe(viewLifecycleOwner) {
+                when (it.status) {
+                    is Success -> {
+                        binding.progressBar.visibility = View.GONE
+                        updateRecipe(it.status.data!!)
+                        binding.recipeCl.visibility = View.VISIBLE
+                    }
+                    is Loading -> {
+                        binding.progressBar.visibility = View.VISIBLE
+                        binding.recipeCl.visibility = View.GONE
+                    }
+                    is Error -> {
+                        binding.progressBar.visibility = View.GONE
+                        Toast.makeText(requireContext(), it.status.message, Toast.LENGTH_LONG)
+                            .show()
+                    }
+                }
+            }
+
+            id?.let {
+                viewModel.setId(it)
             }
         }
-        //get id from bundle
-        //use id to get recipe object
-        //parse info from recipe
-
-         */
 
         val adapter = ArrayAdapter.createFromResource(
             requireContext(),
@@ -164,6 +172,16 @@ class AddRecipe : Fragment() {
         }
     }
 
+    private fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)
+
+    private fun updateRecipe(recipe: Recipe) {
+    binding.title.text = recipe.title.toEditable()
+    //binding.category.text = recipe.category.toEditable()
+    binding.ingredients.text = recipe.ingredients.toEditable()
+    binding.instructions.text = recipe.instructions.toEditable()
+    Glide.with(requireContext()).load(recipe.photo).into(binding.pic)
+}
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -182,4 +200,31 @@ viewModel.getRecipes()?.observe(viewLifecycleOwner) {
 
     viewModel.update(it[index!!])
 }
+ */
+
+
+/*
+if (id != null) {
+    //val recipe : Recipe = viewModel._recipe(id)
+    viewModel.recipe.observe(viewLifecycleOwner) {
+
+
+
+
+        binding.title.text = it[index!!].title.toEditable()
+        imageUri = Uri.parse(it[index!!].photo)
+        binding.pic.setImageURI(imageUri)
+        //category = it[index!!].category
+        binding.ingredients.text = it[index!!].ingredients.toEditable()
+        binding.instructions.text = it[index!!].instructions.toEditable()
+    }
+}
+//get id from bundle
+//use id to get recipe object
+//parse info from recipe
+
+arguments?.getInt("id")?.let {
+    viewModel.setId(it)
+}
+
  */
