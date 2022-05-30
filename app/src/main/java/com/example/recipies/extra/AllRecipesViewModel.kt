@@ -7,16 +7,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AllRecipesViewModel @Inject constructor(recipeRepository: RecipeRepository, id : Int) : ViewModel() {
-    var recipe = recipeRepository.getRecipe(id)
+class AllRecipesViewModel @Inject constructor(
+    private val recipeRepository: RecipeRepository) : ViewModel() {
     val recipes = recipeRepository.getRecipes()
-    val favoriteRecipes = recipeRepository.getRecipes()
-
-    private var repository = recipeRepository
+    val favoriteRecipes = recipeRepository.getFavoriteRecipes()
 
     fun addRecipe(recipe: Recipe) {
         viewModelScope.launch {
-            repository.addRecipe(recipe)
+            recipeRepository.addRecipe(recipe)
         }
     }
 }

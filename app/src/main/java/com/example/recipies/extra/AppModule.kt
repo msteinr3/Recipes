@@ -1,9 +1,7 @@
 package com.example.recipies.extra
 
 import android.content.Context
-import android.provider.SyncStateContract
 import com.example.recipies.utils.Constants
-import com.example.recipies.utils.Constants.Companion.BASE_URL
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -20,6 +18,9 @@ import javax.inject.Singleton
 class AppModule {
 
     @Provides
+    fun provideGson(): Gson = GsonBuilder().create()
+
+    @Provides
     @Singleton
     fun provideRetrofit(gson: Gson): Retrofit {
         return Retrofit.Builder().baseUrl(Constants.BASE_URL)
@@ -27,15 +28,9 @@ class AppModule {
     }
 
     @Provides
-    fun provideGson(): Gson = GsonBuilder().create()
-
-    @Provides
     @Singleton
-    fun provideLocalDataBase(@ApplicationContext context: Context): RecipeDatabase =
-        RecipeDatabase.getDatabase(context)
-
-    @Provides
-    fun provideRecipeDao(database: RecipeDatabase) = database.RecipeDao()
+    fun provideLocalDataBase(@ApplicationContext appContext: Context): RecipeDatabase =
+        RecipeDatabase.getDatabase(appContext)
 
     @Provides
     fun provideRecipeService(retrofit: Retrofit): RecipeService =
@@ -43,6 +38,13 @@ class AppModule {
 
     @Provides
     @Singleton
+    fun provideRecipeDao(database: RecipeDatabase) = database.RecipeDao()
+
+    /*
+    @Provides
+    @Singleton
     fun provideRecipeRemoteDataSource(recipeService: RecipeService) =
         RecipeRemoteDataSource(recipeService)
+
+     */
 }

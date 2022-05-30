@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,9 +12,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.recipies.R
 import com.example.recipies.databinding.FavoritesFragmentBinding
 import com.example.recipies.extra.AllRecipesViewModel
+import com.example.recipies.extra.Recipe
 import com.example.recipies.extra.RecipeAdapter
-import com.example.recipies.utils.Loading
-import com.example.recipies.utils.Success
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -45,25 +43,17 @@ class Favorites : Fragment(), RecipeAdapter.RecipeItemListener {
         binding.recycler.adapter = adapter
 
         viewModel.favoriteRecipes.observe(viewLifecycleOwner) {
-            when(it.status) {
-                is Loading -> binding.progressBar.visibility = View.VISIBLE
-
-                is Success -> {
-                    binding.progressBar.visibility = View.GONE
-                    adapter.setRecipes(it.status.data!!)
-                }
-
-                is Error -> {
-                    binding.progressBar.visibility = View.GONE
-                    Toast.makeText(requireContext(),it.status.message, Toast.LENGTH_LONG).show()
-                }
-            }
+            adapter.setRecipes(it)
         }
     }
 
     override fun onRecipeClick(recipeId: Int) {
         findNavController().navigate(R.id.action_favorites_to_singleRecipe,
             bundleOf("id" to recipeId))
+    }
+
+    override fun onRecipeLongClick(recipe: Recipe) {
+        recipe.favorite = !recipe.favorite
     }
 
     override fun onDestroyView() {
@@ -95,4 +85,21 @@ class Favorites : Fragment(), RecipeAdapter.RecipeItemListener {
                 }
             })
         }
+
+
+
+
+                    when(it.status) {
+                is Loading -> binding.progressBar.visibility = View.VISIBLE
+
+                is Success -> {
+                    binding.progressBar.visibility = View.GONE
+                    adapter.setRecipes(it.status.data!!)
+                }
+
+                is Error -> {
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(requireContext(),it.status.message, Toast.LENGTH_LONG).show()
+                }
+            }
  */

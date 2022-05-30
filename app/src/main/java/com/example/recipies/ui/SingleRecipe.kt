@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.recipies.R
 import com.example.recipies.databinding.SingleRecipeBinding
+import com.example.recipies.extra.Ingredient
 import com.example.recipies.extra.Recipe
 import com.example.recipies.extra.RecipeViewModel
 import com.example.recipies.utils.Loading
@@ -71,9 +72,17 @@ class SingleRecipe : Fragment() {
     private fun updateRecipe(recipe: Recipe) {
         binding.title.text = recipe.title
         binding.category.text = recipe.category
-        binding.ingredients.text = recipe.ingredients
+        binding.ingredients.text = ingredientsArrayToString(recipe.extendedIngredients)
         binding.instructions.text = recipe.instructions
-        Glide.with(requireContext()).load(recipe.photo).circleCrop().into(binding.pic)
+        Glide.with(requireContext()).load(recipe.image).circleCrop().into(binding.pic)
+    }
+
+    private fun ingredientsArrayToString(arr : Array<Ingredient>) : String {
+        val builder = java.lang.StringBuilder("")
+        for (i in 0..arr.size) {
+            builder.append(arr[i].name + ",\n")
+        }
+        return builder.toString()
     }
 
     override fun onDestroyView() {

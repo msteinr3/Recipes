@@ -5,7 +5,7 @@ import com.example.recipies.utils.performFetchingAndSaving
 import javax.inject.Inject
 
 class RecipeRepository @Inject constructor(
-    private val  remoteDataSource: RecipeRemoteDataSource,
+    private val remoteDataSource: RecipeRemoteDataSource,
     private val localDataSource: RecipeDao
 ){
 

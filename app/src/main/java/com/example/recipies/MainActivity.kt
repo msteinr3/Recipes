@@ -1,38 +1,14 @@
 package com.example.recipies
 
-import android.os.*
+import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.recipies.databinding.ActivityMainBinding
-import android.app.DownloadManager
-import android.content.ContentValues
-import android.content.Context
-import android.database.Cursor
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.net.Uri
-import android.provider.MediaStore
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.*
-//import kotlinx.serialization.*
-//import kotlinx.serialization.json.*
-import org.json.JSONObject
-import org.json.JSONTokener
-import android.widget.*
-import androidx.activity.viewModels
-import java.io.*
-import java.net.HttpURLConnection
-import java.net.MalformedURLException
-import java.net.URL
-import java.util.concurrent.Executors
+import dagger.hilt.android.AndroidEntryPoint
 
-//@AndroidEntryPoint
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

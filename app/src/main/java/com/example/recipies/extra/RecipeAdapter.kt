@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.recipies.R
-import com.example.recipies.databinding.RecipeFragmentBinding
 import com.example.recipies.databinding.RecipeLayoutBinding
 
 class RecipeAdapter(private val listener : RecipeItemListener) :
@@ -14,20 +13,21 @@ class RecipeAdapter(private val listener : RecipeItemListener) :
 
     private val recipes = ArrayList<Recipe>()
 
-    class RecipeViewHolder(private val recipeBinding: RecipeLayoutBinding,
+    inner class RecipeViewHolder(private val recipeBinding: RecipeLayoutBinding,
                            private val listener: RecipeItemListener)
         : RecyclerView.ViewHolder(recipeBinding.root),
-        View.OnClickListener {
+        View.OnClickListener, View.OnLongClickListener {
 
         private lateinit var recipe: Recipe
 
         init {
             recipeBinding.root.setOnClickListener(this)
+            recipeBinding.root.setOnLongClickListener(this)
         }
 
         fun bind(recipe: Recipe) {
             recipeBinding.recipeTitle.text = recipe.title
-            Glide.with(recipeBinding.root).load(recipe.photo).centerCrop().into(recipeBinding.recipeImage)
+            Glide.with(recipeBinding.root).load(recipe.image).centerCrop().into(recipeBinding.recipeImage)
             if (recipe.favorite) {
                 recipeBinding.favorite.setImageResource(R.drawable.ic_baseline_favorite)
             } else {
@@ -36,7 +36,12 @@ class RecipeAdapter(private val listener : RecipeItemListener) :
         }
 
         override fun onClick(v: View?) {
-            listener.onRecipeClick(recipe.id)
+            listener.onRecipeClick(recipes[adapterPosition].id)
+        }
+
+        override fun onLongClick(p0: View?): Boolean {
+            listener.onRecipeLongClick(recipes[adapterPosition])
+            return true
         }
     }
 
@@ -58,6 +63,7 @@ class RecipeAdapter(private val listener : RecipeItemListener) :
 
     interface RecipeItemListener {
         fun onRecipeClick(recipeId : Int)
+        fun onRecipeLongClick(recipe: Recipe)
     }
 }
 

@@ -16,8 +16,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.recipies.R
-import com.example.recipies.databinding.AddFragmentBinding
+import com.example.recipies.databinding.AddRecipeBinding
 import com.example.recipies.extra.AllRecipesViewModel
+import com.example.recipies.extra.Ingredient
 import com.example.recipies.extra.Recipe
 import com.example.recipies.extra.RecipeViewModel
 import com.example.recipies.utils.Loading
@@ -28,7 +29,7 @@ import java.io.File
 @AndroidEntryPoint
 class AddRecipe : Fragment() {
 
-    private var _binding: AddFragmentBinding? = null
+    private var _binding: AddRecipeBinding? = null
     private val binding get() = _binding!!
     private val viewModel : RecipeViewModel by viewModels()
     private val allViewModel : AllRecipesViewModel by viewModels()
@@ -65,7 +66,7 @@ class AddRecipe : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = AddFragmentBinding.inflate(inflater, container, false);
+        _binding = AddRecipeBinding.inflate(inflater, container, false);
 
         return binding.root
     }
@@ -156,16 +157,15 @@ class AddRecipe : Fragment() {
 
             } else {
                 val recipe = Recipe(
-                    0,
+                    0,  //need different IDs for each
                     binding.title.text.toString(),
-                    imageUri.toString(),
-                    binding.ingredients.text.toString(),
-                    binding.instructions.text.toString(),
                     spinner,
+                    imageUri.toString(),
+                    stringToIngredientsArray(binding.ingredients.text.toString()),
+                    binding.instructions.text.toString(),
                     favorite = false,
-                    internet = false
                 )
-                println(imageUri)
+                //println(imageUri)
                 allViewModel.addRecipe(recipe)
                 findNavController().navigate(R.id.action_addRecipe_to_allRecipes)
             }
@@ -174,12 +174,29 @@ class AddRecipe : Fragment() {
 
     private fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)
 
+    private fun stringToIngredientsArray(ingredients : String) : Array<Ingredient> {
+        val separated = ingredients.split(" ", ", ", "\n")
+        var ans = mutableListOf<Ingredient>()
+        for (i in 0..separated.size) {
+            ans.add(Ingredient(separated[i]))
+        }
+        return ans.toTypedArray()
+    }
+
+    private fun ingredientsArrayToString(arr : Array<Ingredient>) : String {
+        val builder = java.lang.StringBuilder("")
+        for (i in 0..arr.size) {
+            builder.append(arr[i].name + ",\n")
+        }
+        return builder.toString()
+    }
+
     private fun updateRecipe(recipe: Recipe) {
     binding.title.text = recipe.title.toEditable()
     //binding.category.text = recipe.category.toEditable()
-    binding.ingredients.text = recipe.ingredients.toEditable()
+    binding.ingredients.text = ingredientsArrayToString(recipe.extendedIngredients).toEditable()
     binding.instructions.text = recipe.instructions.toEditable()
-    Glide.with(requireContext()).load(recipe.photo).into(binding.pic)
+    Glide.with(requireContext()).load(recipe.image).into(binding.pic)
 }
 
     override fun onDestroyView() {

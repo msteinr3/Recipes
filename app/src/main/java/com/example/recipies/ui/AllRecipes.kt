@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.recipies.R
 import com.example.recipies.databinding.AllRecipesBinding
 import com.example.recipies.extra.AllRecipesViewModel
+import com.example.recipies.extra.Recipe
 import com.example.recipies.extra.RecipeAdapter
 import com.example.recipies.utils.Loading
 import com.example.recipies.utils.Success
@@ -64,6 +65,10 @@ class AllRecipes : Fragment(), RecipeAdapter.RecipeItemListener {
     override fun onRecipeClick(recipeId: Int) {
         findNavController().navigate(R.id.action_allRecipes_to_singleRecipe,
             bundleOf("id" to recipeId))
+    }
+
+    override fun onRecipeLongClick(recipe: Recipe) {
+        recipe.favorite = !recipe.favorite
     }
 
     override fun onDestroyView() {

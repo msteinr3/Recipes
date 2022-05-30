@@ -14,7 +14,7 @@
         android:id="@+id/addRecipe"
         android:name="com.example.recipies.ui.AddRecipe"
         android:label="add_fragment"
-        tools:layout="@layout/add_fragment">
+        tools:layout="@layout/add_recipe">
         <action
             android:id="@+id/action_addRecipe_to_allRecipes"
             app:destination="@id/allRecipes" />

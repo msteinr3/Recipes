@@ -1,40 +1,37 @@
 package com.example.recipies.extra
 
-import android.icu.text.CaseMap
-import android.net.Uri
-import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.net.URI
 
 @Entity(tableName = "recipes")
 data class Recipe (
     @PrimaryKey
     val id : Int,
-
     @ColumnInfo(name = "food")
     var title: String,
-
-    @ColumnInfo(name = "image")
-    var photo: String?,
-
-    @ColumnInfo(name = "ingr")
-    var ingredients: String,
-
-    @ColumnInfo(name = "instr")
+    var category: String = "Other",
+    var image: String?,
+    var extendedIngredients : Array<Ingredient>,
     var instructions: String,
-
-    @ColumnInfo(name = "cat")
-    var category: String,
-
     @ColumnInfo(name = "like")
-    var favorite: Boolean,
-
-    @ColumnInfo(name = "web")
-    var internet: Boolean
+    var favorite: Boolean = false,
 ) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Recipe
+
+        if (!extendedIngredients.contentEquals(other.extendedIngredients)) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return extendedIngredients.contentHashCode()
+    }
 }
 
 //things to add: video, author...
-//ID?
+//give new recipes unique id's in add
