@@ -31,13 +31,15 @@ class AddRecipe : Fragment() {
 
     private var _binding: AddRecipeBinding? = null
     private val binding get() = _binding!!
-    private val viewModel : RecipeViewModel by viewModels()
-    private val allViewModel : AllRecipesViewModel by viewModels()
+    private val viewModel: RecipeViewModel by viewModels()
+    private val allViewModel: AllRecipesViewModel by viewModels()
 
-    private var id : Int? = null
+    private var id: Int? = null
     private var imageUri: Uri? = null
-    private lateinit var spinner : String
     private lateinit var file: File
+    private var vegetarian: Boolean = false
+    private var vegan: Boolean = false
+    private var glutenFree: Boolean = false
 
     private val pickItemLauncher: ActivityResultLauncher<Array<String>> =
         registerForActivityResult(ActivityResultContracts.OpenDocument()) {
@@ -101,15 +103,18 @@ class AddRecipe : Fragment() {
             }
         }
 
+        /*
         val adapter = ArrayAdapter.createFromResource(
             requireContext(),
-            R.array.categories,
+            R.array.diet,
             R.layout.drop_down
         )
         binding.dropdown.setAdapter(adapter)
         binding.dropdown.setOnItemClickListener { adapterView, view, i, l ->
             spinner = adapterView.getItemAtPosition(i).toString()
         }
+
+         */
 
         binding.choosePic.setOnClickListener {
             pickItemLauncher.launch(arrayOf("image/*"))
@@ -129,11 +134,23 @@ class AddRecipe : Fragment() {
              */
         }
 
+        binding.vegetarian.setOnClickListener {
+            vegetarian = !vegetarian
+        }
+
+        binding.vegan.setOnClickListener {
+            vegan = !vegan
+        }
+
+        binding.glutenFree.setOnClickListener {
+            glutenFree = !glutenFree
+        }
+
         binding.finishBtn.setOnClickListener {
             if (binding.title.text.toString().isEmpty() ||
                 binding.ingredients.text.toString().isEmpty() ||
                 binding.instructions.text.toString().isEmpty() ||
-                spinner.isEmpty() ||
+                binding.category.text.toString().isEmpty() ||
                 imageUri == null
             ) {
                 val builder = StringBuilder("Missing info:\n")
@@ -147,7 +164,7 @@ class AddRecipe : Fragment() {
                 if (binding.instructions.text.toString().isEmpty()) {
                     builder.append("instructions, ")
                 }
-                if (spinner.isEmpty()) {
+                if (binding.category.text.toString().isEmpty()) {
                     builder.append("category, ")
                 }
                 if (imageUri == null) {
@@ -159,10 +176,13 @@ class AddRecipe : Fragment() {
                 val recipe = Recipe(
                     0,  //need different IDs for each
                     binding.title.text.toString(),
-                    spinner,
+                    binding.category.text.toString(),
                     imageUri.toString(),
                     stringToIngredientsArray(binding.ingredients.text.toString()),
                     binding.instructions.text.toString(),
+                    vegetarian = vegetarian,
+                    vegan = vegan,
+                    glutenFree = glutenFree,
                     favorite = false,
                 )
                 //println(imageUri)
@@ -174,8 +194,8 @@ class AddRecipe : Fragment() {
 
     private fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)
 
-    private fun stringToIngredientsArray(ingredients : String) : Array<Ingredient> {
-        val separated = ingredients.split(" ", ", ", "\n")
+    private fun stringToIngredientsArray(ingredients: String): Array<Ingredient> {
+        val separated = ingredients.split(", ", "\n")
         var ans = mutableListOf<Ingredient>()
         for (i in 0..separated.size) {
             ans.add(Ingredient(separated[i]))
@@ -183,8 +203,8 @@ class AddRecipe : Fragment() {
         return ans.toTypedArray()
     }
 
-    private fun ingredientsArrayToString(arr : Array<Ingredient>) : String {
-        val builder = java.lang.StringBuilder("")
+    private fun ingredientsArrayToString(arr: Array<Ingredient>): String {
+        val builder = StringBuilder("")
         for (i in 0..arr.size) {
             builder.append(arr[i].name + ",\n")
         }
@@ -192,12 +212,18 @@ class AddRecipe : Fragment() {
     }
 
     private fun updateRecipe(recipe: Recipe) {
-    binding.title.text = recipe.title.toEditable()
-    //binding.category.text = recipe.category.toEditable()
-    binding.ingredients.text = ingredientsArrayToString(recipe.extendedIngredients).toEditable()
-    binding.instructions.text = recipe.instructions.toEditable()
-    Glide.with(requireContext()).load(recipe.image).into(binding.pic)
-}
+        binding.title.text = recipe.title.toEditable()
+        binding.category.text = recipe.category.toEditable()
+        binding.ingredients.text = ingredientsArrayToString(recipe.extendedIngredients).toEditable()
+        binding.instructions.text = recipe.instructions.toEditable()
+        vegetarian = recipe.vegetarian
+        binding.vegetarian.isChecked = vegetarian
+        vegan = recipe.vegan
+        binding.vegan.isChecked = vegan
+        glutenFree = recipe.glutenFree
+        binding.glutenFree.isChecked = glutenFree
+        Glide.with(requireContext()).load(recipe.image).into(binding.pic)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

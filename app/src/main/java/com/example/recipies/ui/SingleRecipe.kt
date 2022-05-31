@@ -18,6 +18,7 @@ import com.example.recipies.extra.RecipeViewModel
 import com.example.recipies.utils.Loading
 import com.example.recipies.utils.Success
 import dagger.hilt.android.AndroidEntryPoint
+import java.lang.StringBuilder
 
 @AndroidEntryPoint
 class SingleRecipe : Fragment() {
@@ -75,6 +76,18 @@ class SingleRecipe : Fragment() {
         binding.ingredients.text = ingredientsArrayToString(recipe.extendedIngredients)
         binding.instructions.text = recipe.instructions
         Glide.with(requireContext()).load(recipe.image).circleCrop().into(binding.pic)
+
+        val diet = StringBuilder("")
+        if (recipe.vegetarian) {
+            diet.append("Vegetarian ")
+        }
+        if (recipe.vegan) {
+            diet.append("Vegan ")
+        }
+        if (recipe.glutenFree) {
+            diet.append(R.string.gluten_free)
+        }
+        binding.dietary.text = diet.toString()
     }
 
     private fun ingredientsArrayToString(arr : Array<Ingredient>) : String {

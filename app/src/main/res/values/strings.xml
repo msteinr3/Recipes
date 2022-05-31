@@ -15,17 +15,9 @@
     <string name="my_recipes">My Recipes</string>
     <string name="category">Category</string>
     <string name="all_recipes">All Recipes</string>
-
-    <string-array name="categories">
-        <item>Other</item>
-        <item>Appetizer</item>
-        <item>Snack</item>
-        <item>Salad</item>
-        <item>Dessert</item>
-        <item>Soup</item>
-        <item>Moroccan</item>
-        <item>Meat</item>
-        <item>Veggie</item>
-    </string-array>
+    <string name="diet">Diet</string>
+    <string name="vegetarian">Vegetarian</string>
+    <string name="vegan">Vegan</string>
+    <string name="gluten_free">Gluten Free</string>
 
 </resources>

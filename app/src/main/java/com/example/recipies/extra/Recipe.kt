@@ -14,6 +14,9 @@ data class Recipe (
     var image: String?,
     var extendedIngredients : Array<Ingredient>,
     var instructions: String,
+    var vegetarian: Boolean,
+    var vegan: Boolean,
+    var glutenFree: Boolean,
     @ColumnInfo(name = "like")
     var favorite: Boolean = false,
 ) {

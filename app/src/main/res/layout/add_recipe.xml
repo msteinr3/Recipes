@@ -73,22 +73,46 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text4"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:startIconDrawable="@drawable/ic_baseline_fastfood"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text3">
 
-            <AutoCompleteTextView
-                android:id="@+id/dropdown"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/category"
-                android:inputType="none"
-                android:dropDownHeight="200dp"/>
+                android:hint="@string/category" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <RadioButton
+            android:id="@+id/vegetarian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text4"
+            android:text="@string/vegetarian"
+            />
+
+        <RadioButton
+            android:id="@+id/vegan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/vegetarian"
+            android:text="@string/vegan"
+            />
+
+        <RadioButton
+            android:id="@+id/gluten_free"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/vegan"
+            android:text="@string/gluten_free"
+            />
 
         <ImageView
             android:id="@+id/pic"
@@ -99,27 +123,29 @@
             android:src="@drawable/ic_baseline_fastfood"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text4"/>
+            app:layout_constraintTop_toBottomOf="@+id/gluten_free"/>
 
         <Button
             android:id="@+id/choose_pic"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="25dp"
             android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="35dp"
             android:layout_weight="1"
             android:text="@string/photos"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/camera"
             app:layout_constraintTop_toBottomOf="@+id/pic"/>
 
         <Button
             android:id="@+id/camera"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="25dp"
             android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="35dp"
             android:layout_weight="1"
             android:text="@string/camera"
+            app:layout_constraintStart_toEndOf="@+id/choose_pic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pic"/>
 
