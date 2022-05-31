@@ -6,20 +6,9 @@ import retrofit2.http.Path
 
 interface RecipeService {
 
-    @GET("recipe")
-    suspend fun getAllRecipes() : Response<AllRecipes>
+    @GET("random?number=2")
+    suspend fun getAllRecipes() : Response<ApiRecipes>
 
-    @GET("recipe/{id}")
+    @GET("{id}/information")
     suspend fun getRecipe(@Path("id") id : Int) : Response<Recipe>
 }
-
-/*
-    @GET("recipe")
-    suspend fun getInternetRecipes() : Response<AllRecipes>
-
-    @GET("recipe")
-    suspend fun getMyRecipes() : Response<AllRecipes>
-
-    @GET("recipe")
-    suspend fun getFavoriteRecipes() : Response<AllRecipes>
- */
