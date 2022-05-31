@@ -10,6 +10,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RecipeViewModel @Inject constructor(
+
     private val recipeRepository: RecipeRepository) : ViewModel() {
     private val _id = MutableLiveData<Int>()
 
@@ -22,6 +23,8 @@ class RecipeViewModel @Inject constructor(
     fun setId(id: Int) {
         _id.value = id
     }
+
+
 }
 
 /*

@@ -1,6 +1,7 @@
 package com.example.recipies.extra
 
 import android.app.Application
+import com.example.recipies.utils.performFetchAndSave
 import com.example.recipies.utils.performFetchingAndSaving
 import javax.inject.Inject
 
@@ -15,16 +16,20 @@ class RecipeRepository @Inject constructor(
         {localDataSource.addRecipes(it.results)}
     )
 
-    fun getFavoriteRecipes() = localDataSource.getFavoriteRecipes()
+    fun getRecipe(id : Int) = performFetchAndSave { localDataSource.getRecipe(id) }
 
-    fun getRecipe(id : Int) = performFetchingAndSaving(
-        {localDataSource.getRecipe(id)},
-        {remoteDataSource.getRecipe(id)},
-        {localDataSource.addRecipe(it)}
-    )
+    fun getFavoriteRecipes() = localDataSource.getFavoriteRecipes()
 
     suspend fun addRecipe(recipe: Recipe) {
         localDataSource.addRecipe(recipe)
     }
 }
 
+
+/*
+    fun getRecipe(id : Int) {
+        localDataSource.getRecipe(id)
+    }
+ */
+
+//fun getRecipe(id : Int) = localDataSource.getRecipe(id)

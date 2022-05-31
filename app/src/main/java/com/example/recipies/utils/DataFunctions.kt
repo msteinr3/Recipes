@@ -26,3 +26,13 @@ fun <T,A> performFetchingAndSaving(localDbFetch: () -> LiveData<T>,
             emitSource(source)
         }
     }
+
+fun <T> performFetchAndSave(localDbFetch: () -> LiveData<T>) : LiveData<Resource<T>> =
+
+    liveData(Dispatchers.IO) {
+
+        emit(Resource.loading())
+
+        val source = localDbFetch().map { Resource.success(it) }
+        emitSource(source)
+    }

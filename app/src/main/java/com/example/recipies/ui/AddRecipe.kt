@@ -80,6 +80,7 @@ class AddRecipe : Fragment() {
 
         if (id != null) {
             viewModel.recipe.observe(viewLifecycleOwner) {
+
                 when (it.status) {
                     is Success -> {
                         binding.progressBar.visibility = View.GONE
@@ -102,19 +103,6 @@ class AddRecipe : Fragment() {
                 viewModel.setId(it)
             }
         }
-
-        /*
-        val adapter = ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.diet,
-            R.layout.drop_down
-        )
-        binding.dropdown.setAdapter(adapter)
-        binding.dropdown.setOnItemClickListener { adapterView, view, i, l ->
-            spinner = adapterView.getItemAtPosition(i).toString()
-        }
-
-         */
 
         binding.choosePic.setOnClickListener {
             pickItemLauncher.launch(arrayOf("image/*"))
@@ -185,7 +173,6 @@ class AddRecipe : Fragment() {
                     glutenFree = glutenFree,
                     favorite = false,
                 )
-                //println(imageUri)
                 allViewModel.addRecipe(recipe)
                 findNavController().navigate(R.id.action_addRecipe_to_allRecipes)
             }
@@ -269,5 +256,18 @@ if (id != null) {
 arguments?.getInt("id")?.let {
     viewModel.setId(it)
 }
+
+
+
+        val adapter = ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.diet,
+            R.layout.drop_down
+        )
+        binding.dropdown.setAdapter(adapter)
+        binding.dropdown.setOnItemClickListener { adapterView, view, i, l ->
+            spinner = adapterView.getItemAtPosition(i).toString()
+        }
+
 
  */
