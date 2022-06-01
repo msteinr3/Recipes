@@ -7,9 +7,8 @@ import retrofit2.http.Path
 interface RecipeService {
 
     //val apiKey = "apiKey=7d20e2623c9a43fb80d46016f39e2121"
-
-    //@GET("random?apiKey=7d20e2623c9a43fb80d46016f39e2121&number=2")
-    @GET("random?number=2")
+    //716429/information?apiKey=7d20e2623c9a43fb80d46016f39e2121&includeNutrition=false
+    @GET("random/information?apiKey=7d20e2623c9a43fb80d46016f39e2121&number=1")
     suspend fun getAllRecipes() : Response<ApiRecipes>
 
     @GET("{id}/information")
