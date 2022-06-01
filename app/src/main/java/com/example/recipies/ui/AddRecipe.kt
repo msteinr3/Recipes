@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.example.recipies.MainActivity
 import com.example.recipies.R
 import com.example.recipies.databinding.AddRecipeBinding
 import com.example.recipies.extra.AllRecipesViewModel
@@ -161,12 +162,17 @@ class AddRecipe : Fragment() {
                 Toast.makeText(requireContext(), builder.toString(), Toast.LENGTH_LONG).show()
 
             } else {
+                if (id == null) {
+                    MainActivity.id += -1
+                    id = MainActivity.id
+                }
                 val recipe = Recipe(
-                    0,  //need different IDs for each
+                    id!!,
                     binding.title.text.toString(),
                     binding.category.text.toString(),
                     imageUri.toString(),
-                    stringToIngredientsArray(binding.ingredients.text.toString()),
+                    //stringToIngredientsArray(binding.ingredients.text.toString()),
+                    binding.ingredients.text.toString(),
                     binding.instructions.text.toString(),
                     vegetarian = vegetarian,
                     vegan = vegan,
@@ -201,7 +207,10 @@ class AddRecipe : Fragment() {
     private fun updateRecipe(recipe: Recipe) {
         binding.title.text = recipe.title.toEditable()
         binding.category.text = recipe.category.toEditable()
-        binding.ingredients.text = ingredientsArrayToString(recipe.extendedIngredients).toEditable()
+        binding.pic.setImageURI(Uri.parse(recipe.image))
+        imageUri = Uri.parse(recipe.image)
+        //binding.ingredients.text = ingredientsArrayToString(recipe.extendedIngredients).toEditable()
+        binding.ingredients.text = recipe.extendedIngredients.toEditable()
         binding.instructions.text = recipe.instructions.toEditable()
         vegetarian = recipe.vegetarian
         binding.vegetarian.isChecked = vegetarian
@@ -218,56 +227,3 @@ class AddRecipe : Fragment() {
     }
 }
 
-/*
-} else if (index != null) {
-
-viewModel.getRecipes()?.observe(viewLifecycleOwner) {
-    it[index!!].title = binding.title.text.toString()
-    it[index!!].photo = imageUri.toString()
-    it[index!!].ingredients = binding.ingredients.text.toString()
-    it[index!!].instructions = binding.instructions.text.toString()
-    it[index!!].category = spinner
-
-    viewModel.update(it[index!!])
-}
- */
-
-
-/*
-if (id != null) {
-    //val recipe : Recipe = viewModel._recipe(id)
-    viewModel.recipe.observe(viewLifecycleOwner) {
-
-
-
-
-        binding.title.text = it[index!!].title.toEditable()
-        imageUri = Uri.parse(it[index!!].photo)
-        binding.pic.setImageURI(imageUri)
-        //category = it[index!!].category
-        binding.ingredients.text = it[index!!].ingredients.toEditable()
-        binding.instructions.text = it[index!!].instructions.toEditable()
-    }
-}
-//get id from bundle
-//use id to get recipe object
-//parse info from recipe
-
-arguments?.getInt("id")?.let {
-    viewModel.setId(it)
-}
-
-
-
-        val adapter = ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.diet,
-            R.layout.drop_down
-        )
-        binding.dropdown.setAdapter(adapter)
-        binding.dropdown.setOnItemClickListener { adapterView, view, i, l ->
-            spinner = adapterView.getItemAtPosition(i).toString()
-        }
-
-
- */

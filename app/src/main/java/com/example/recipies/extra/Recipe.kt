@@ -12,7 +12,8 @@ data class Recipe (
     var title: String,
     var category: String = "Other",
     var image: String?,
-    var extendedIngredients : Array<Ingredient>,
+    //var extendedIngredients : Array<Ingredient>,
+    var extendedIngredients : String = "",
     var instructions: String,
     var vegetarian: Boolean,
     var vegan: Boolean,
@@ -20,6 +21,7 @@ data class Recipe (
     @ColumnInfo(name = "like")
     var favorite: Boolean = false,
 ) {
+    /*
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -34,7 +36,5 @@ data class Recipe (
     override fun hashCode(): Int {
         return extendedIngredients.contentHashCode()
     }
+ */
 }
-
-//things to add: video, author...
-//give new recipes unique id's in add

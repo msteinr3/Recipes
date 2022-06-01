@@ -20,6 +20,10 @@ class RecipeRepository @Inject constructor(
 
     fun getFavoriteRecipes() = localDataSource.getFavoriteRecipes()
 
+    suspend fun update(recipe: Recipe) {
+        localDataSource.update(recipe)
+    }
+
     suspend fun addRecipe(recipe: Recipe) {
         localDataSource.addRecipe(recipe)
     }

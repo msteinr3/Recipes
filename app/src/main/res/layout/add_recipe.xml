@@ -87,7 +87,7 @@
                 android:hint="@string/category" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <RadioButton
+        <CheckBox
             android:id="@+id/vegetarian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
             android:text="@string/vegetarian"
             />
 
-        <RadioButton
+        <CheckBox
             android:id="@+id/vegan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
             android:text="@string/vegan"
             />
 
-        <RadioButton
+        <CheckBox
             android:id="@+id/gluten_free"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -129,8 +129,8 @@
             android:id="@+id/choose_pic"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-            android:layout_marginHorizontal="35dp"
+            android:layout_margin="10dp"
+            android:gravity="center_horizontal"
             android:layout_weight="1"
             android:text="@string/photos"
             app:layout_constraintStart_toStartOf="parent"
@@ -141,8 +141,8 @@
             android:id="@+id/camera"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-            android:layout_marginHorizontal="35dp"
+            android:layout_margin="10dp"
+            android:gravity="center_horizontal"
             android:layout_weight="1"
             android:text="@string/camera"
             app:layout_constraintStart_toEndOf="@+id/choose_pic"

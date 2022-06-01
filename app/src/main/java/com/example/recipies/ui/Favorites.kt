@@ -10,18 +10,20 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.recipies.R
-import com.example.recipies.databinding.FavoritesFragmentBinding
+import com.example.recipies.databinding.FavoritesBinding
 import com.example.recipies.extra.AllRecipesViewModel
 import com.example.recipies.extra.Recipe
 import com.example.recipies.extra.RecipeAdapter
+import com.example.recipies.extra.RecipeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class Favorites : Fragment(), RecipeAdapter.RecipeItemListener {
 
-    private var _binding: FavoritesFragmentBinding? = null
+    private var _binding: FavoritesBinding? = null
     private val binding get() = _binding!!
-    private val viewModel : AllRecipesViewModel by viewModels()
+    private val allViewModel : AllRecipesViewModel by viewModels()
+    private val viewModel : RecipeViewModel by viewModels()
     private  lateinit var  adapter: RecipeAdapter
 
     override fun onCreateView(
@@ -29,7 +31,7 @@ class Favorites : Fragment(), RecipeAdapter.RecipeItemListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FavoritesFragmentBinding.inflate(inflater, container,false);
+        _binding = FavoritesBinding.inflate(inflater, container,false);
 
 
         return binding.root
@@ -42,7 +44,7 @@ class Favorites : Fragment(), RecipeAdapter.RecipeItemListener {
         binding.recycler.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.recycler.adapter = adapter
 
-        viewModel.favoriteRecipes.observe(viewLifecycleOwner) {
+        allViewModel.favoriteRecipes.observe(viewLifecycleOwner) {
             adapter.setRecipes(it)
         }
     }
@@ -53,7 +55,11 @@ class Favorites : Fragment(), RecipeAdapter.RecipeItemListener {
     }
 
     override fun onRecipeLongClick(recipe: Recipe) {
+        viewModel.recipe.observe(viewLifecycleOwner) {
+        }
+        viewModel.setId(recipe.id)
         recipe.favorite = !recipe.favorite
+        viewModel.update(recipe)
     }
 
     override fun onDestroyView() {

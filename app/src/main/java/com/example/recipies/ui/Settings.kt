@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.recipies.databinding.SettingsFragmentBinding
+import com.example.recipies.databinding.SettingsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class Settings : Fragment() {
 
-    private var _binding: SettingsFragmentBinding? = null
+    private var _binding: SettingsBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -19,7 +19,7 @@ class Settings : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = SettingsFragmentBinding.inflate(inflater,container,false);
+        _binding = SettingsBinding.inflate(inflater,container,false);
 
         //code
 

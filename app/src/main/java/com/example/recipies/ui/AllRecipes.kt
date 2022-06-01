@@ -15,6 +15,7 @@ import com.example.recipies.databinding.AllRecipesBinding
 import com.example.recipies.extra.AllRecipesViewModel
 import com.example.recipies.extra.Recipe
 import com.example.recipies.extra.RecipeAdapter
+import com.example.recipies.extra.RecipeViewModel
 import com.example.recipies.utils.Loading
 import com.example.recipies.utils.Success
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,7 +25,8 @@ class AllRecipes : Fragment(), RecipeAdapter.RecipeItemListener {
 
     private var _binding: AllRecipesBinding? = null
     private val binding get() = _binding!!
-    private val viewModel : AllRecipesViewModel by viewModels()
+    private val allViewModel : AllRecipesViewModel by viewModels()
+    private val viewModel : RecipeViewModel by viewModels()
     private  lateinit var  adapter: RecipeAdapter
 
     override fun onCreateView(
@@ -45,7 +47,7 @@ class AllRecipes : Fragment(), RecipeAdapter.RecipeItemListener {
         binding.recycler.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.recycler.adapter = adapter
 
-        viewModel.recipes.observe(viewLifecycleOwner) {
+        allViewModel.recipes.observe(viewLifecycleOwner) {
             when(it.status) {
                 is Loading -> binding.progressBar.visibility = View.VISIBLE
 
@@ -68,7 +70,11 @@ class AllRecipes : Fragment(), RecipeAdapter.RecipeItemListener {
     }
 
     override fun onRecipeLongClick(recipe: Recipe) {
+        viewModel.recipe.observe(viewLifecycleOwner) {
+        }
+        viewModel.setId(recipe.id)
         recipe.favorite = !recipe.favorite
+        viewModel.update(recipe)
     }
 
     override fun onDestroyView() {

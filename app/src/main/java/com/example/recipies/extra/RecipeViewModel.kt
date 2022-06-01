@@ -1,11 +1,9 @@
 package com.example.recipies.extra
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
+import androidx.lifecycle.*
 import com.example.recipies.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,6 +17,12 @@ class RecipeViewModel @Inject constructor(
     }
 
     val recipe : LiveData<Resource<Recipe>> = _recipe
+
+    fun update(recipe: Recipe) {
+        viewModelScope.launch {
+            recipeRepository.update(recipe)
+        }
+    }
 
     fun setId(id: Int) {
         _id.value = id

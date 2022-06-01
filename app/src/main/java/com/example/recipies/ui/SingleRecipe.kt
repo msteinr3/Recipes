@@ -73,19 +73,20 @@ class SingleRecipe : Fragment() {
     private fun updateRecipe(recipe: Recipe) {
         binding.title.text = recipe.title
         binding.category.text = recipe.category
-        binding.ingredients.text = ingredientsArrayToString(recipe.extendedIngredients)
+        //binding.ingredients.text = ingredientsArrayToString(recipe.extendedIngredients)
+        binding.ingredients.text = recipe.extendedIngredients
         binding.instructions.text = recipe.instructions
-        Glide.with(requireContext()).load(recipe.image).circleCrop().into(binding.pic)
+        Glide.with(requireContext()).load(recipe.image).into(binding.pic)
 
         val diet = StringBuilder("")
         if (recipe.vegetarian) {
             diet.append("Vegetarian ")
         }
         if (recipe.vegan) {
-            diet.append("Vegan ")
+            diet.append(" Vegan ")
         }
         if (recipe.glutenFree) {
-            diet.append(R.string.gluten_free)
+            diet.append(" Gluten Free")
         }
         binding.dietary.text = diet.toString()
     }

@@ -18,7 +18,7 @@ class RecipeAdapter(private val listener : RecipeItemListener) :
         : RecyclerView.ViewHolder(recipeBinding.root),
         View.OnClickListener, View.OnLongClickListener {
 
-        private lateinit var recipe: Recipe
+        //private lateinit var recipe: Recipe
 
         init {
             recipeBinding.root.setOnClickListener(this)
