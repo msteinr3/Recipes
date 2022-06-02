@@ -3,7 +3,7 @@ package com.example.recipies.extra
 import android.content.Context
 import androidx.room.*
 
-@Database(entities = [Recipe::class], version = 1, exportSchema = false)
+@Database(entities = [Recipe::class], version = 2, exportSchema = false)
 @TypeConverters(IngredientsConverters::class)
 abstract class RecipeDatabase : RoomDatabase() {
     abstract fun RecipeDao(): RecipeDao
