@@ -1,11 +1,7 @@
 package com.example.recipies.extra
 
 import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 
-//@Entity(tableName = "ingredient")
-data class Ingredient(
-    //@PrimaryKey
-    var name : String
-) {
-}
+data class Ingredient(var name : String)
+

@@ -1,11 +1,10 @@
 package com.example.recipies.extra
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
 
 @Database(entities = [Recipe::class], version = 1, exportSchema = false)
+@TypeConverters(IngredientsConverters::class)
 abstract class RecipeDatabase : RoomDatabase() {
     abstract fun RecipeDao(): RecipeDao
 
@@ -19,9 +18,13 @@ abstract class RecipeDatabase : RoomDatabase() {
                     context,
                     RecipeDatabase::class.java,
                     "recipes"
-                ).fallbackToDestructiveMigration().build().also {
+                )
+                    //.addTypeConverter(IngredientsConverters::class)
+                    .fallbackToDestructiveMigration()
+                    .build().also {
                     instance = it
                 }
             }
     }
 }
+

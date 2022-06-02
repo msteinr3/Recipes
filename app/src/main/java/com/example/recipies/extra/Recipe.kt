@@ -1,10 +1,9 @@
 package com.example.recipies.extra
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 @Entity(tableName = "recipes")
+@TypeConverters(IngredientsConverters::class)
 data class Recipe (
     @PrimaryKey
     val id : Int,
@@ -21,7 +20,7 @@ data class Recipe (
     @ColumnInfo(name = "like")
     var favorite: Boolean = false,
 ) {
-    /*
+/*
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -36,5 +35,6 @@ data class Recipe (
     override fun hashCode(): Int {
         return extendedIngredients.contentHashCode()
     }
+
  */
 }

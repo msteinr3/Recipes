@@ -14,20 +14,20 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.room.ProvidedTypeConverter
+import androidx.room.TypeConverter
 import com.bumptech.glide.Glide
 import com.example.recipies.MainActivity
 import com.example.recipies.R
 import com.example.recipies.databinding.AddRecipeBinding
-import com.example.recipies.extra.AllRecipesViewModel
-import com.example.recipies.extra.Ingredient
-import com.example.recipies.extra.Recipe
-import com.example.recipies.extra.RecipeViewModel
+import com.example.recipies.extra.*
 import com.example.recipies.utils.Loading
 import com.example.recipies.utils.Success
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 
 @AndroidEntryPoint
+@ProvidedTypeConverter
 class AddRecipe : Fragment() {
 
     private var _binding: AddRecipeBinding? = null
@@ -199,7 +199,7 @@ class AddRecipe : Fragment() {
     private fun ingredientsArrayToString(arr: Array<Ingredient>): String {
         val builder = StringBuilder("")
         for (i in 0..arr.size) {
-            builder.append(arr[i].name + ",\n")
+            builder.append("${arr[i].name} + ,\n")
         }
         return builder.toString()
     }

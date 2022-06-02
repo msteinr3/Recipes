@@ -9,10 +9,12 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.room.TypeConverters
 import com.bumptech.glide.Glide
 import com.example.recipies.R
 import com.example.recipies.databinding.SingleRecipeBinding
 import com.example.recipies.extra.Ingredient
+import com.example.recipies.extra.IngredientsConverters
 import com.example.recipies.extra.Recipe
 import com.example.recipies.extra.RecipeViewModel
 import com.example.recipies.utils.Loading
@@ -21,6 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.lang.StringBuilder
 
 @AndroidEntryPoint
+@TypeConverters(IngredientsConverters::class)
 class SingleRecipe : Fragment() {
 
     private var _binding: SingleRecipeBinding? = null
@@ -92,9 +95,9 @@ class SingleRecipe : Fragment() {
     }
 
     private fun ingredientsArrayToString(arr : Array<Ingredient>) : String {
-        val builder = java.lang.StringBuilder("")
+        val builder = StringBuilder("")
         for (i in 0..arr.size) {
-            builder.append(arr[i].name + ",\n")
+            builder.append("${arr[i].name} + ,\n")
         }
         return builder.toString()
     }
@@ -104,22 +107,3 @@ class SingleRecipe : Fragment() {
         _binding = null
     }
 }
-
-/*
-        viewModel.recipe.observe(viewLifecycleOwner) {
-            val index = arguments?.getInt("index", 0)
-            val title = it.status.data
-            //[index!!].title
-            val pic = Uri.parse(it[index].photo)
-            val category = it[index].category
-            val ingredients = it[index].ingredients
-            val instructions = it[index].instructions
-
-            binding.title.text = title
-            binding.pic.setImageURI(pic)
-            binding.category.text = category
-            binding.ingredients.text = ingredients
-            binding.instructions.text = instructions
-        }
-
- */
