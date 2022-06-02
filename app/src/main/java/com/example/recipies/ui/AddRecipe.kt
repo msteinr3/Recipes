@@ -1,8 +1,16 @@
 package com.example.recipies.ui
 
+import android.Manifest
+import android.app.Activity
+import android.content.ContentValues
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +19,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -25,6 +34,8 @@ import com.example.recipies.utils.Loading
 import com.example.recipies.utils.Success
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
 
 @AndroidEntryPoint
 @ProvidedTypeConverter
@@ -110,8 +121,19 @@ class AddRecipe : Fragment() {
             binding.pic.setImageURI(imageUri)
         }
 
+        val resultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                println("result launcher")
+                if (result.resultCode == Activity.RESULT_OK) {
+                    handleCameraImage(result.data)
+                }
+            }
+
         binding.camera.setOnClickListener {
-            smallImageCameraLauncher.launch(null)
+            //smallImageCameraLauncher.launch(null)
+            val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            resultLauncher.launch(cameraIntent)
+            println("after intent start")
             /*
             file = File(
                 requireActivity().getExternalFilesDir(
@@ -136,6 +158,7 @@ class AddRecipe : Fragment() {
         }
 
         binding.finishBtn.setOnClickListener {
+            println("image uri: " + imageUri)
             if (binding.title.text.toString().isEmpty() ||
                 binding.ingredients.text.toString().isEmpty() ||
                 binding.instructions.text.toString().isEmpty() ||
@@ -182,6 +205,59 @@ class AddRecipe : Fragment() {
                 allViewModel.addRecipe(recipe)
                 findNavController().navigate(R.id.action_addRecipe_to_allRecipes)
             }
+        }
+    }
+
+    private fun handleCameraImage(intent: Intent?) {
+        val bitmap = intent?.extras?.get("data") as Bitmap
+        binding.pic.setImageBitmap(bitmap)
+        saveMediaToStorage(bitmap)
+    }
+
+    private fun saveMediaToStorage(bitmap: Bitmap) {
+        //Generating a file name
+        val filename = "${System.currentTimeMillis()}.jpg"
+
+        //Output stream
+        var fos: OutputStream? = null
+        //var imageUri: Uri?
+
+        //For devices running android >= Q
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            println("new android")
+            //getting the contentResolver
+            context?.contentResolver?.also { resolver ->
+
+                //Content resolver will process the contentvalues
+                val contentValues = ContentValues().apply {
+
+                    //putting file information in content values
+                    put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
+                    put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
+                    put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+                }
+
+                //Inserting the contentValues to contentResolver and getting the Uri
+                imageUri =
+                    resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+
+                //Opening an outputstream with the Uri that we got
+                fos = imageUri?.let { resolver.openOutputStream(it) }
+                println("image uri in saving: " + imageUri)
+            }
+        } else {
+            println("old android")
+            //android < Q
+            val imagesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+            println(imagesDir)
+            val image = File(imagesDir, filename)
+            println(image)
+            // error for older android, maybe permission?
+            fos = FileOutputStream(image)
+        }
+        fos?.use {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
+            println("saved to photos")
         }
     }
 
