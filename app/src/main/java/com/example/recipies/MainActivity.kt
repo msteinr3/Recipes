@@ -8,14 +8,21 @@ import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.recipies.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
 
-    //only works while using app, resets when closed and reopened
-    //try to save int in ROOM
+    override fun onResume() {
+        super.onResume()
+        // Fetching the stored data
+        // from the SharedPreference
+        val sh = getSharedPreferences("MySharedPref", MODE_PRIVATE)
+        id = sh.getInt("id", 0)
+    }
+
     companion object {
         var id = -1
     }
@@ -32,6 +39,19 @@ class MainActivity : AppCompatActivity() {
         setupWithNavController(bottomNav, navController)
 
         //fetch()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Creating a shared pref object
+        // with a file name "MySharedPref"
+        // in private mode
+        val sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE)
+        val myEdit = sharedPreferences.edit()
+
+        // write all the data entered by the user in SharedPreference and apply
+        myEdit.putInt("id", id)
+        myEdit.apply()
     }
 }
 
