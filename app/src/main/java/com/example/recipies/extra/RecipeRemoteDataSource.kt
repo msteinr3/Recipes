@@ -8,7 +8,7 @@ class RecipeRemoteDataSource @Inject constructor(
     private val recipeService: RecipeService
 ) : BaseDataSource() {
 
-    suspend fun getRecipes() = getResult { recipeService.getAllRecipes() }
+    suspend fun getRecipes() = getResult { recipeService.getRandomRecipes() }
 
-    suspend fun getRecipe(id: Int) = getResult { recipeService.getRecipe(id) }
+    //suspend fun getRecipe(id: Int) = getResult { recipeService.getRecipe(id) }
 }

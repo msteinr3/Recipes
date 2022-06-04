@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.*
 
 @Database(entities = [Recipe::class], version = 2, exportSchema = false)
-@TypeConverters(IngredientsConverters::class)
+//@TypeConverters(IngredientsConverters::class)
 abstract class RecipeDatabase : RoomDatabase() {
     abstract fun RecipeDao(): RecipeDao
 

@@ -18,8 +18,6 @@ class RecipeAdapter(private val listener : RecipeItemListener) :
         : RecyclerView.ViewHolder(recipeBinding.root),
         View.OnClickListener, View.OnLongClickListener {
 
-        //private lateinit var recipe: Recipe
-
         init {
             recipeBinding.root.setOnClickListener(this)
             recipeBinding.root.setOnLongClickListener(this)
@@ -67,35 +65,3 @@ class RecipeAdapter(private val listener : RecipeItemListener) :
     }
 }
 
-
-/*
-override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder =
-    RecipeViewHolder(
-        RecipeLayoutBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false))
-
-
-interface RecipeListener {
-fun onRecipeClicked(index: Int)
-fun onRecipeLongClicked(index: Int)
-}
-
-inner class RecipeViewHolder(private val binding: RecipeLayoutBinding) :
-RecyclerView.ViewHolder(binding.root), View.OnClickListener, View.OnLongClickListener {
-
-init {
-binding.root.setOnClickListener(this)
-binding.root.setOnLongClickListener(this)
-}
-
-override fun onClick(p0: View?) {
-callback.onRecipeClicked(layoutPosition)
-}
-
-override fun onLongClick(p0: View?): Boolean {
-callback.onRecipeLongClicked(layoutPosition)
-return true
-}
-*/

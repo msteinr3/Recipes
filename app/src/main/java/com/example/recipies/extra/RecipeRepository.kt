@@ -13,7 +13,7 @@ class RecipeRepository @Inject constructor(
     fun getRecipes() = performFetchingAndSaving(
         {localDataSource.getRecipes()},
         {remoteDataSource.getRecipes()},
-        {localDataSource.addRecipes(it.results)}
+        {localDataSource.addRecipes(it.recipes)}
     )
 
     fun getRecipe(id : Int) = performFetchAndSave { localDataSource.getRecipe(id) }

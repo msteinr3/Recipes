@@ -15,18 +15,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
 
-    override fun onResume() {
-        super.onResume()
-        // Fetching the stored data
-        // from the SharedPreference
-        val sh = getSharedPreferences("MySharedPref", MODE_PRIVATE)
-        id = sh.getInt("id", 0)
-    }
-
-    companion object {
-        var id = -1
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -52,6 +40,18 @@ class MainActivity : AppCompatActivity() {
         // write all the data entered by the user in SharedPreference and apply
         myEdit.putInt("id", id)
         myEdit.apply()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Fetching the stored data
+        // from the SharedPreference
+        val sh = getSharedPreferences("MySharedPref", MODE_PRIVATE)
+        id = sh.getInt("id", 0)
+    }
+
+    companion object {
+        var id = -1
     }
 }
 

@@ -158,7 +158,7 @@ class AddRecipe : Fragment() {
         }
 
         binding.finishBtn.setOnClickListener {
-            println("image uri: " + imageUri)
+            println("image uri: $imageUri")
             if (binding.title.text.toString().isEmpty() ||
                 binding.ingredients.text.toString().isEmpty() ||
                 binding.instructions.text.toString().isEmpty() ||
@@ -192,8 +192,8 @@ class AddRecipe : Fragment() {
                 val recipe = Recipe(
                     id!!,
                     binding.title.text.toString(),
-                    binding.category.text.toString(),
                     imageUri.toString(),
+                    binding.category.text.toString(),
                     //stringToIngredientsArray(binding.ingredients.text.toString()),
                     binding.ingredients.text.toString(),
                     binding.instructions.text.toString(),
@@ -228,7 +228,7 @@ class AddRecipe : Fragment() {
             //getting the contentResolver
             context?.contentResolver?.also { resolver ->
 
-                //Content resolver will process the contentvalues
+                //Content resolver will process the content values
                 val contentValues = ContentValues().apply {
 
                     //putting file information in content values
@@ -243,7 +243,7 @@ class AddRecipe : Fragment() {
 
                 //Opening an outputstream with the Uri that we got
                 fos = imageUri?.let { resolver.openOutputStream(it) }
-                println("image uri in saving: " + imageUri)
+                println("image uri in saving: $imageUri")
             }
         } else {
             println("old android")
