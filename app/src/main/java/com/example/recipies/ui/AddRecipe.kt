@@ -65,7 +65,7 @@ class AddRecipe : Fragment() {
             )
             imageUri = it
         }
-/*
+
     private val smallImageCameraLauncher: ActivityResultLauncher<Void> =
         registerForActivityResult(ActivityResultContracts.TakePicturePreview()) {
             binding.pic.setImageBitmap(it)
@@ -78,7 +78,7 @@ class AddRecipe : Fragment() {
             }
         }
 
- */
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
