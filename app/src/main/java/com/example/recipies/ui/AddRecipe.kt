@@ -3,6 +3,7 @@ package com.example.recipies.ui
 import android.Manifest
 import android.app.Activity
 import android.content.ContentValues
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -19,6 +20,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -47,6 +49,7 @@ class AddRecipe : Fragment() {
     private val allViewModel: AllRecipesViewModel by viewModels()
 
     private var id: Int? = null
+    private var recipe: Recipe? = null
     private var imageUri: Uri? = null
     private lateinit var file: File
     private var vegetarian: Boolean = false
@@ -62,7 +65,7 @@ class AddRecipe : Fragment() {
             )
             imageUri = it
         }
-
+/*
     private val smallImageCameraLauncher: ActivityResultLauncher<Void> =
         registerForActivityResult(ActivityResultContracts.TakePicturePreview()) {
             binding.pic.setImageBitmap(it)
@@ -74,6 +77,8 @@ class AddRecipe : Fragment() {
                 Glide.with(this).load(file).into(binding.pic)
             }
         }
+
+ */
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -96,6 +101,7 @@ class AddRecipe : Fragment() {
                 when (it.status) {
                     is Success -> {
                         binding.progressBar.visibility = View.GONE
+                        recipe = it.status.data!!
                         updateRecipe(it.status.data!!)
                         binding.recipeCl.visibility = View.VISIBLE
                     }
@@ -134,15 +140,6 @@ class AddRecipe : Fragment() {
             val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             resultLauncher.launch(cameraIntent)
             println("after intent start")
-            /*
-            file = File(
-                requireActivity().getExternalFilesDir(
-                    Environment.DIRECTORY_PICTURES
-                ),
-                "temp.jpg",
-                fullSizePhotoLauncher.launch(Uri.fromFile(file))
-            )
-             */
         }
 
         binding.vegetarian.setOnClickListener {
@@ -194,7 +191,6 @@ class AddRecipe : Fragment() {
                     binding.title.text.toString(),
                     imageUri.toString(),
                     binding.category.text.toString(),
-                    //stringToIngredientsArray(binding.ingredients.text.toString()),
                     binding.ingredients.text.toString(),
                     binding.instructions.text.toString(),
                     vegetarian = vegetarian,
@@ -204,6 +200,24 @@ class AddRecipe : Fragment() {
                 )
                 allViewModel.addRecipe(recipe)
                 findNavController().navigate(R.id.action_addRecipe_to_allRecipes)
+            }
+        }
+
+        binding.deleteBtn.setOnClickListener {
+            if (id != null) {
+                val builder = AlertDialog.Builder(requireContext())
+                builder.setTitle(R.string.delete)
+                builder.setMessage(getString(R.string.sure))
+                builder.setPositiveButton(getString(R.string.delete), DialogInterface.OnClickListener { dialog, _ ->
+                    //allViewModel.removeRecipe(recipe!!)
+                    dialog.cancel()
+                })
+                builder.setNegativeButton(getString(R.string.cancel), DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
+                })
+                val alert = builder.create()
+                alert.setTitle(R.string.delete)
+                alert.show()
             }
         }
     }
@@ -263,31 +277,13 @@ class AddRecipe : Fragment() {
 
     private fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)
 
-    private fun stringToIngredientsArray(ingredients: String): Array<Ingredient> {
-        val separated = ingredients.split(", ", "\n")
-        var ans = mutableListOf<Ingredient>()
-        for (i in 0..separated.size) {
-            ans.add(Ingredient(separated[i]))
-        }
-        return ans.toTypedArray()
-    }
-
-    private fun ingredientsArrayToString(arr: Array<Ingredient>): String {
-        val builder = StringBuilder("")
-        for (i in 0..arr.size) {
-            builder.append("${arr[i].name} + ,\n")
-        }
-        return builder.toString()
-    }
-
     private fun updateRecipe(recipe: Recipe) {
         binding.title.text = recipe.title.toEditable()
         binding.category.text = recipe.category?.toEditable()
         binding.pic.setImageURI(Uri.parse(recipe.image))
         imageUri = Uri.parse(recipe.image)
-        //binding.ingredients.text = ingredientsArrayToString(recipe.extendedIngredients).toEditable()
         binding.ingredients.text = recipe.ingredients?.toEditable()
-        binding.instructions.text = recipe.instructions.toEditable()
+        binding.instructions.text = deleteTags(recipe.instructions).toEditable()
         vegetarian = recipe.vegetarian
         binding.vegetarian.isChecked = vegetarian
         vegan = recipe.vegan
@@ -295,6 +291,25 @@ class AddRecipe : Fragment() {
         glutenFree = recipe.glutenFree
         binding.glutenFree.isChecked = glutenFree
         Glide.with(requireContext()).load(recipe.image).into(binding.pic)
+    }
+
+    private fun deleteTags(text: String): String {
+        println("deleting tags")
+        println(text)
+        var newText = ""
+        var add = true
+        for (i in 0..text.length - 1) {
+            if (text[i] == '<') {
+                add = false
+            }
+            if (add) {
+                newText += text[i]
+            }
+            if (text[i] == '>') {
+                add = true
+            }
+        }
+        return newText.replace(".", ".\n")
     }
 
     override fun onDestroyView() {

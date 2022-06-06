@@ -44,6 +44,16 @@ class SingleRecipe : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+/*
+        viewModel.recipe.observe(viewLifecycleOwner) {
+        }
+        viewModel.setId(recipe.id)
+        recipe.instructions = deleteTags(recipe.instructions)
+        viewModel.update(recipe)
+
+ */
+
+
         viewModel.recipe.observe(viewLifecycleOwner) {
             when(it.status) {
                 is Success -> {
@@ -107,7 +117,7 @@ class SingleRecipe : Fragment() {
         _binding = null
     }
 
-    fun deleteTags(text: String): String {
+    private fun deleteTags(text: String): String {
         println("deleting tags")
         println(text)
         var newText = ""
@@ -123,6 +133,6 @@ class SingleRecipe : Fragment() {
                 add = true
             }
         }
-        return newText
+        return newText.replace(".", ".\n")
     }
 }

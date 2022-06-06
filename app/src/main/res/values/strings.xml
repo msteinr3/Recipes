@@ -22,5 +22,9 @@
     <string name="store">Store</string>
     <string name="coming_soon">Coming Soon:</string>
     <string name="feature">This feature will allow you to order a custom recipe book made of all the recipes in your favorites.</string>
+    <string name="delete">Delete</string>
+    <string name="sure">Are you sure you want to delete this recipe?</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
 
 </resources>
