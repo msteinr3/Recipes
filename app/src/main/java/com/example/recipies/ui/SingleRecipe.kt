@@ -77,7 +77,7 @@ class SingleRecipe : Fragment() {
         binding.title.text = recipe.title
         binding.category.text = recipe.category
         //binding.ingredients.text = ingredientsArrayToString(recipe.extendedIngredients)
-        binding.ingredients.text = recipe.extendedIngredients
+        binding.ingredients.text = recipe.ingredients
         binding.instructions.text = recipe.instructions
         Glide.with(requireContext()).load(recipe.image).into(binding.pic)
 

@@ -282,11 +282,11 @@ class AddRecipe : Fragment() {
 
     private fun updateRecipe(recipe: Recipe) {
         binding.title.text = recipe.title.toEditable()
-        binding.category.text = recipe.category.toEditable()
+        binding.category.text = recipe.category?.toEditable()
         binding.pic.setImageURI(Uri.parse(recipe.image))
         imageUri = Uri.parse(recipe.image)
         //binding.ingredients.text = ingredientsArrayToString(recipe.extendedIngredients).toEditable()
-        binding.ingredients.text = recipe.extendedIngredients.toEditable()
+        binding.ingredients.text = recipe.ingredients?.toEditable()
         binding.instructions.text = recipe.instructions.toEditable()
         vegetarian = recipe.vegetarian
         binding.vegetarian.isChecked = vegetarian

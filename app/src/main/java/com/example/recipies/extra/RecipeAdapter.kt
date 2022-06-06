@@ -26,7 +26,8 @@ class RecipeAdapter(private val listener : RecipeItemListener) :
         fun bind(recipe: Recipe) {
             recipeBinding.recipeTitle.text = recipe.title
             Glide.with(recipeBinding.root).load(recipe.image).centerCrop().into(recipeBinding.recipeImage)
-            if (recipe.favorite) {
+
+            if (recipe.favorite == true) {
                 recipeBinding.favorite.setImageResource(R.drawable.ic_baseline_favorite)
             } else {
                 recipeBinding.favorite.setImageResource(R.drawable.ic_baseline_favorite_border)

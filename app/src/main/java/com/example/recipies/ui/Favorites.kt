@@ -58,7 +58,7 @@ class Favorites : Fragment(), RecipeAdapter.RecipeItemListener {
         viewModel.recipe.observe(viewLifecycleOwner) {
         }
         viewModel.setId(recipe.id)
-        recipe.favorite = !recipe.favorite
+        recipe.favorite = recipe.favorite != true
         viewModel.update(recipe)
     }
 

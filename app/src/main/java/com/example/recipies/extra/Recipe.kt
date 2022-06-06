@@ -12,15 +12,17 @@ data class Recipe(
     @ColumnInfo(name = "food")
     var title: String,
     var image: String?,
-    var category: String = "Other",
-    //var extendedIngredients : Array<Ingredient>,
-    var extendedIngredients: String = "",
+    @SerializedName("creditText")
+    var category: String? = null,
+    //var extendedIngredients : List<Ingredient>,
+    var ingredients: String? = null,
     var instructions: String,
     var vegetarian: Boolean,
     var vegan: Boolean,
     var glutenFree: Boolean,
     @ColumnInfo(name = "like")
-    var favorite: Boolean = false
+    @SerializedName("ketogenic")
+    var favorite: Boolean? = null
 
 ) {
 /*

@@ -1,4 +1,6 @@
 package com.example.recipies.extra
 
-data class ApiRecipes(val recipes: List<Recipe>) {
+data class ApiRecipes(
+    val recipes: List<Recipe>
+    ) {
 }
