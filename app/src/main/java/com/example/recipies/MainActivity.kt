@@ -8,7 +8,6 @@ import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.recipies.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 

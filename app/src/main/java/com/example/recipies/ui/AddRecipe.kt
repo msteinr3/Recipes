@@ -79,7 +79,6 @@ class AddRecipe : Fragment() {
         }
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -203,22 +202,35 @@ class AddRecipe : Fragment() {
             }
         }
 
-        binding.deleteBtn.setOnClickListener {
-            if (id != null) {
+        if (id != null) {
+            binding.deleteBtn.setOnClickListener {
                 val builder = AlertDialog.Builder(requireContext())
                 builder.setTitle(R.string.delete)
                 builder.setMessage(getString(R.string.sure))
-                builder.setPositiveButton(getString(R.string.delete), DialogInterface.OnClickListener { dialog, _ ->
-                    //allViewModel.removeRecipe(recipe!!)
-                    dialog.cancel()
-                })
-                builder.setNegativeButton(getString(R.string.cancel), DialogInterface.OnClickListener { dialog, id ->
-                    dialog.cancel()
-                })
+                builder.setPositiveButton(
+                    getString(R.string.delete),
+                    DialogInterface.OnClickListener { dialog, _ ->
+                        viewModel.recipe.observe(viewLifecycleOwner) {
+                            allViewModel.deleteRecipe(it.status.data!!)
+                        }
+                        id?.let {
+                            viewModel.setId(it)
+                        }
+                        //deletes, but crashes, idk why
+                        findNavController().navigate(R.id.action_addRecipe_to_allRecipes)
+                        dialog.cancel()
+                    })
+                builder.setNegativeButton(
+                    getString(R.string.cancel),
+                    DialogInterface.OnClickListener { dialog, id ->
+                        dialog.cancel()
+                    })
                 val alert = builder.create()
                 alert.setTitle(R.string.delete)
                 alert.show()
             }
+        } else {
+            binding.deleteBtn.visibility = View.GONE
         }
     }
 
@@ -262,7 +274,8 @@ class AddRecipe : Fragment() {
         } else {
             println("old android")
             //android < Q
-            val imagesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+            val imagesDir =
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
             println(imagesDir)
             val image = File(imagesDir, filename)
             println(image)
