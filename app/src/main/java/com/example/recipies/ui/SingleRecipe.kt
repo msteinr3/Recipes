@@ -78,7 +78,7 @@ class SingleRecipe : Fragment() {
         binding.category.text = recipe.category
         //binding.ingredients.text = ingredientsArrayToString(recipe.extendedIngredients)
         binding.ingredients.text = recipe.ingredients
-        binding.instructions.text = recipe.instructions
+        binding.instructions.text = deleteTags(recipe.instructions)
         Glide.with(requireContext()).load(recipe.image).into(binding.pic)
 
         val diet = StringBuilder("")
@@ -105,5 +105,24 @@ class SingleRecipe : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    fun deleteTags(text: String): String {
+        println("deleting tags")
+        println(text)
+        var newText = ""
+        var add = true
+        for (i in 0..text.length - 1) {
+            if (text[i] == '<') {
+                add = false
+            }
+            if (add) {
+                newText += text[i]
+            }
+            if (text[i] == '>') {
+                add = true
+            }
+        }
+        return newText
     }
 }
