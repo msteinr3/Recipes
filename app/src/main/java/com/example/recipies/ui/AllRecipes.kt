@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.recipies.R
 import com.example.recipies.databinding.AllRecipesBinding
 import com.example.recipies.extra.AllRecipesViewModel
@@ -44,7 +45,7 @@ class AllRecipes : Fragment(), RecipeAdapter.RecipeItemListener {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = RecipeAdapter(this)
-        binding.recycler.layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.recycler.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         binding.recycler.adapter = adapter
 
         allViewModel.recipes.observe(viewLifecycleOwner) {

@@ -12,6 +12,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.124" />
         <entry key="app/src/main/res/drawable/ic_baseline_favorite_border.xml" value="0.124" />
         <entry key="app/src/main/res/drawable/ic_baseline_format_list_bulleted.xml" value="0.1115" />
+        <entry key="app/src/main/res/drawable/ic_baseline_grid_view.xml" value="0.1135" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.24960734049479166" />
         <entry key="app/src/main/res/layout/add_fragment.xml" value="0.24168192545572914" />
         <entry key="app/src/main/res/layout/add_recipe.xml" value="0.2306879679361979" />
