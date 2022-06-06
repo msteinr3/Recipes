@@ -8,7 +8,7 @@ import retrofit2.http.Path
 interface RecipeService {
 
     @Headers("X-RapidAPI-Key: e3529cf2e2mshfd875deaf5d88f0p1dec52jsn45165f63480a")
-    @GET("random?number=2")
+    @GET("random?number=10")
     suspend fun getRandomRecipes() : Response<ApiRecipes>
 
     //@GET("{id}/information?")
