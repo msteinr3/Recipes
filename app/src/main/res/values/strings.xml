@@ -19,5 +19,8 @@
     <string name="vegetarian">Vegetarian</string>
     <string name="vegan">Vegan</string>
     <string name="gluten_free">Gluten Free</string>
+    <string name="store">Store</string>
+    <string name="coming_soon">Coming Soon:</string>
+    <string name="feature">This feature will allow you to order a custom recipe book made of all the recipes in your favorites.</string>
 
 </resources>

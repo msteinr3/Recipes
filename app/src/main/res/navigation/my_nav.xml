@@ -6,11 +6,6 @@
     app:startDestination="@id/allRecipes">
 
     <fragment
-        android:id="@+id/settings"
-        android:name="com.example.recipies.ui.Settings"
-        android:label="settings_fragment"
-        tools:layout="@layout/settings" />
-    <fragment
         android:id="@+id/addRecipe"
         android:name="com.example.recipies.ui.AddRecipe"
         android:label="add_fragment"
@@ -46,4 +41,9 @@
             android:id="@+id/action_allRecipes_to_singleRecipe"
             app:destination="@id/singleRecipe" />
     </fragment>
+    <fragment
+        android:id="@+id/store"
+        android:name="com.example.recipies.ui.Store"
+        android:label="store"
+        tools:layout="@layout/store" />
 </navigation>

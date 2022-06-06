@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.recipies.databinding.SettingsBinding
+import com.example.recipies.databinding.StoreBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class Settings : Fragment() {
+class Store : Fragment() {
 
-    private var _binding: SettingsBinding? = null
+    private var _binding: StoreBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -19,10 +19,7 @@ class Settings : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = SettingsBinding.inflate(inflater,container,false);
-
-        //code
-
+        _binding = StoreBinding.inflate(inflater,container,false);
 
         return binding.root
     }

@@ -14,8 +14,8 @@
         android:title="@string/add"
         android:icon="@drawable/ic_baseline_add"/>
     <item
-        android:id="@+id/settings"
-        android:title="@string/settings"
-        android:icon="@drawable/ic_baseline_settings"/>
+        android:id="@+id/store"
+        android:title="@string/store"
+        android:icon="@drawable/ic_baseline_local_grocery_store"/>
 
 </menu>
