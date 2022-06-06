@@ -11,7 +11,5 @@ interface RecipeService {
     @GET("random?number=10")
     suspend fun getRandomRecipes() : Response<ApiRecipes>
 
-    //@GET("{id}/information?")
-    //suspend fun getRecipe(@Path("id") id : Int) : Response<Recipe>
 }
 

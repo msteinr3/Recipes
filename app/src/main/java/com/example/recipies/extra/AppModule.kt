@@ -40,11 +40,4 @@ class AppModule {
     @Singleton
     fun provideRecipeDao(database: RecipeDatabase) = database.RecipeDao()
 
-    /*
-    @Provides
-    @Singleton
-    fun provideRecipeRemoteDataSource(recipeService: RecipeService) =
-        RecipeRemoteDataSource(recipeService)
-
-     */
 }

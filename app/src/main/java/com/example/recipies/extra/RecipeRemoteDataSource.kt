@@ -10,5 +10,4 @@ class RecipeRemoteDataSource @Inject constructor(
 
     suspend fun getRecipes() = getResult { recipeService.getRandomRecipes() }
 
-    //suspend fun getRecipe(id: Int) = getResult { recipeService.getRecipe(id) }
 }
