@@ -24,16 +24,15 @@
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+            android:gravity="center_horizontal"
             android:text="@string/title"
             android:textColor="@color/black"
-            android:textSize="40sp"
+            android:textSize="35sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/edit" />
 
         <ImageButton
             android:id="@+id/edit"
@@ -91,9 +90,9 @@
 
         <TextView
             android:id="@+id/ingredients"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginHorizontal="20dp"
             android:layout_marginTop="10dp"
             android:text="Long \nList \nOf \nIngredients"
             android:textColor="@color/black"
@@ -105,7 +104,7 @@
             android:id="@+id/text_instructions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
             android:text="Instructions: "
             android:textColor="@color/black"
@@ -116,10 +115,10 @@
 
         <TextView
             android:id="@+id/instructions"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="5dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginHorizontal="20dp"
             android:text="Long \nList \nOf \nInstructions"
             android:textColor="@color/black"
             android:textSize="20sp"
