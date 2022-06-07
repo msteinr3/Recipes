@@ -18,9 +18,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -131,19 +133,17 @@ class AddRecipe : Fragment() {
             binding.pic.setImageURI(imageUri)
         }
 
-        val resultLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                println("result launcher")
-                if (result.resultCode == Activity.RESULT_OK) {
-                    handleCameraImage(result.data)
-                }
-            }
-
         binding.camera.setOnClickListener {
-            val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            resultLauncher.launch(cameraIntent)
-            println("after intent start")
+            val permission = ContextCompat.checkSelfPermission(requireContext(),
+                Manifest.permission.CAMERA)
+            if (permission != PackageManager.PERMISSION_GRANTED) {
+                callPermissionLauncher.launch(Manifest.permission.CAMERA)
+            }
+            else {
+                takePhoto()
+            }
         }
+
 
         binding.vegetarian.setOnClickListener {
             vegetarian = !vegetarian
@@ -237,6 +237,30 @@ class AddRecipe : Fragment() {
         } else {
             binding.deleteBtn.visibility = View.GONE
         }
+    }
+
+    private val callPermissionLauncher: ActivityResultLauncher<String> = registerForActivityResult(
+        ActivityResultContracts.RequestPermission(), ActivityResultCallback {
+            if (it) {
+                Toast.makeText(context, "permision granted", Toast.LENGTH_SHORT).show()
+                takePhoto()
+            }
+            else {
+                Toast.makeText(context, "Cannot work without permission", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+    private val resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            println("result launcher")
+            if (result.resultCode == Activity.RESULT_OK) {
+                handleCameraImage(result.data)
+            }
+        }
+
+    private fun takePhoto() {
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        resultLauncher.launch(cameraIntent)
     }
 
     private fun handleCameraImage(intent: Intent?) {
