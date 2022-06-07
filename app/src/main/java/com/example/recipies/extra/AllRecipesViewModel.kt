@@ -18,15 +18,9 @@ class AllRecipesViewModel @Inject constructor(
         }
     }
 
-    fun deleteRecipe(recipe: Recipe) {
+    fun deleteRecipeByTitle(title: String) {
         viewModelScope.launch {
-            recipeRepository.delete(recipe)
-        }
-    }
-
-    fun deleteRecipeById(title: String) {
-        viewModelScope.launch {
-            recipeRepository.deleteById(title) //id
+            recipeRepository.deleteByTitle(title) //id
         }
     }
 }

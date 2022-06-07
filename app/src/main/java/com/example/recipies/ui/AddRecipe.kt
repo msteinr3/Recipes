@@ -95,7 +95,6 @@ class AddRecipe : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         println("find host fragment")
 
-
         id = arguments?.getInt("id")
 
         if (id != null) {
@@ -216,7 +215,7 @@ class AddRecipe : Fragment() {
                     DialogInterface.OnClickListener { dialog, Id ->
                         viewModel.recipe.observe(viewLifecycleOwner) {
                             //allViewModel.deleteRecipe(it.status.data!!)
-                            allViewModel.deleteRecipeById(binding.title.text.toString())
+                            allViewModel.deleteRecipeByTitle(binding.title.text.toString())
                         }
                         id?.let {
                             viewModel.setId(it)

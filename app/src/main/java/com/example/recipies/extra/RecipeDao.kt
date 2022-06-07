@@ -21,11 +21,8 @@ interface RecipeDao {
     @Query("SELECT * FROM `recipes` WHERE id = :id")
     fun getRecipe(id: Int): LiveData<Recipe>
 
-    @Delete
-    suspend fun delete(recipe: Recipe)
-
     @Query("DELETE FROM `recipes` WHERE food = :title")//"DELETE FROM `recipes` WHERE id = :userId")
-    suspend fun deleteByUserId(title: String) //userId: Int
+    suspend fun deleteByTitle(title: String) //userId: Int
 
     @Update
     suspend fun update(vararg recipe: Recipe)
