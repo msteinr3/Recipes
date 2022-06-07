@@ -53,6 +53,7 @@ class AddRecipe : Fragment() {
     private var id: Int? = null
     private var recipe: Recipe? = null
     private var imageUri: Uri? = null
+    private lateinit var file: File
     private var vegetarian: Boolean = false
     private var vegan: Boolean = false
     private var glutenFree: Boolean = false
@@ -66,6 +67,21 @@ class AddRecipe : Fragment() {
             )
             imageUri = it
         }
+
+    /*
+    private val smallImageCameraLauncher: ActivityResultLauncher<Void> =
+        registerForActivityResult(ActivityResultContracts.TakePicturePreview()) {
+            binding.pic.setImageBitmap(it)
+        }
+
+    private val fullSizePhotoLauncher: ActivityResultLauncher<Uri> =
+        registerForActivityResult(ActivityResultContracts.TakePicture()) {
+            if (it) {
+                Glide.with(this).load(file).into(binding.pic)
+            }
+        }
+
+     */
 
     override fun onCreateView(
         inflater: LayoutInflater,
