@@ -1,11 +1,15 @@
 package com.example.recipies
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.recipies.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,6 +28,17 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         val bottomNav = binding.bottomNav
         setupWithNavController(bottomNav, navController)
+        navController.addOnDestinationChangedListener { _, item, _ ->
+            println("hund")
+            println(item)
+
+            if (item.id == R.id.addRecipe || item.id == R.id.singleRecipe) {
+                bottomNav.visibility = View.GONE
+            }
+            else {
+                bottomNav.visibility = View.VISIBLE
+            }
+        }
     }
 
     override fun onPause() {
