@@ -20,6 +20,5 @@ data class Recipe(
     @ColumnInfo(name = "like")
     @SerializedName("ketogenic")
     var favorite: Boolean? = null
-
 ) {
 }
