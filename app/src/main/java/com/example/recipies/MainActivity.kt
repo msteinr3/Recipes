@@ -29,9 +29,6 @@ class MainActivity : AppCompatActivity() {
         val bottomNav = binding.bottomNav
         setupWithNavController(bottomNav, navController)
         navController.addOnDestinationChangedListener { _, item, _ ->
-            println("hund")
-            println(item)
-
             if (item.id == R.id.addRecipe || item.id == R.id.singleRecipe) {
                 bottomNav.visibility = View.GONE
             }

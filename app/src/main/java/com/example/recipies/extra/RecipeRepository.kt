@@ -28,6 +28,10 @@ class RecipeRepository @Inject constructor(
         localDataSource.delete(recipe)
     }
 
+    suspend fun deleteById(title: String) { //id: Int
+        localDataSource.deleteByUserId(title) //id
+    }
+
     suspend fun addRecipe(recipe: Recipe) {
         localDataSource.addRecipe(recipe)
     }

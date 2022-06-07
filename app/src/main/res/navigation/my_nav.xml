@@ -12,7 +12,8 @@
         tools:layout="@layout/add_recipe">
         <action
             android:id="@+id/action_addRecipe_to_allRecipes"
-            app:destination="@id/allRecipes" />
+            app:destination="@id/allRecipes"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/favorites"
@@ -30,7 +31,8 @@
         tools:layout="@layout/single_recipe">
         <action
             android:id="@+id/action_singleRecipe_to_addRecipe"
-            app:destination="@id/addRecipe" />
+            app:destination="@id/addRecipe"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/allRecipes"

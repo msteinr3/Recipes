@@ -118,8 +118,6 @@ class SingleRecipe : Fragment() {
     }
 
     private fun deleteTags(text: String): String {
-        println("deleting tags")
-        println(text)
         var newText = ""
         var add = true
         for (i in 0..text.length - 1) {

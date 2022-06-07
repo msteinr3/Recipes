@@ -1,7 +1,6 @@
 package com.example.recipies.extra
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
 import androidx.room.*
 
 @Dao
@@ -24,6 +23,9 @@ interface RecipeDao {
 
     @Delete
     suspend fun delete(recipe: Recipe)
+
+    @Query("DELETE FROM `recipes` WHERE food = :title")//"DELETE FROM `recipes` WHERE id = :userId")
+    suspend fun deleteByUserId(title: String) //userId: Int
 
     @Update
     suspend fun update(vararg recipe: Recipe)

@@ -23,4 +23,10 @@ class AllRecipesViewModel @Inject constructor(
             recipeRepository.delete(recipe)
         }
     }
+
+    fun deleteRecipeById(title: String) {
+        viewModelScope.launch {
+            recipeRepository.deleteById(title) //id
+        }
+    }
 }

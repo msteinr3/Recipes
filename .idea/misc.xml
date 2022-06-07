@@ -18,6 +18,7 @@
         <entry key="app/src/main/res/layout/add_recipe.xml" value="0.2306879679361979" />
         <entry key="app/src/main/res/layout/all_recipes.xml" value="0.2174952189127604" />
         <entry key="app/src/main/res/layout/drop_down.xml" value="0.2043024698893229" />
+        <entry key="app/src/main/res/layout/favorites.xml" value="0.11413043478260869" />
         <entry key="app/src/main/res/layout/favorites_fragment.xml" value="0.22348484848484848" />
         <entry key="app/src/main/res/layout/home_fragment.xml" value="0.25487467447916656" />
         <entry key="app/src/main/res/layout/my_list_fragment.xml" value="0.25465073906829094" />

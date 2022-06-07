@@ -24,6 +24,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
@@ -91,6 +93,8 @@ class AddRecipe : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        println("find host fragment")
+
 
         id = arguments?.getInt("id")
 
@@ -209,9 +213,10 @@ class AddRecipe : Fragment() {
                 builder.setMessage(getString(R.string.sure))
                 builder.setPositiveButton(
                     getString(R.string.delete),
-                    DialogInterface.OnClickListener { dialog, _ ->
+                    DialogInterface.OnClickListener { dialog, Id ->
                         viewModel.recipe.observe(viewLifecycleOwner) {
-                            allViewModel.deleteRecipe(it.status.data!!)
+                            //allViewModel.deleteRecipe(it.status.data!!)
+                            allViewModel.deleteRecipeById(binding.title.text.toString())
                         }
                         id?.let {
                             viewModel.setId(it)
