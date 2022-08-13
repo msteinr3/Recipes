@@ -37,7 +37,6 @@ class AllRecipes : Fragment(), RecipeAdapter.RecipeItemListener {
     ): View? {
         _binding = AllRecipesBinding.inflate(inflater, container, false);
 
-
         return binding.root
     }
 
@@ -55,6 +54,7 @@ class AllRecipes : Fragment(), RecipeAdapter.RecipeItemListener {
                 is Success -> {
                     binding.progressBar.visibility = View.GONE
                     adapter.setRecipes(it.status.data!!)
+                    binding.number.text = adapter.itemCount.toString()
                 }
 
                 is Error -> {

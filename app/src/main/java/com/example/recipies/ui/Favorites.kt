@@ -46,6 +46,7 @@ class Favorites : Fragment(), RecipeAdapter.RecipeItemListener {
 
         allViewModel.favoriteRecipes.observe(viewLifecycleOwner) {
             adapter.setRecipes(it)
+            binding.number.text = adapter.itemCount.toString()
         }
     }
 
