@@ -12,6 +12,7 @@ import com.example.recipies.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
+//this is the version I like
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
