@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,6 +17,7 @@ import com.example.recipies.extra.Recipe
 import com.example.recipies.extra.RecipeAdapter
 import com.example.recipies.extra.RecipeViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class Favorites : Fragment(), RecipeAdapter.RecipeItemListener {
@@ -48,6 +50,24 @@ class Favorites : Fragment(), RecipeAdapter.RecipeItemListener {
             adapter.setRecipes(it)
             binding.number.text = adapter.itemCount.toString()
         }
+
+        /*
+        binding.search.clearFocus()
+        binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            android.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(msg: String): Boolean {
+                // inside on query text change method we are
+                // calling a method to filter our recycler view.
+                //filter(msg)
+                return false
+            }
+        })
+         */
+
     }
 
     override fun onRecipeClick(recipeId: Int) {
