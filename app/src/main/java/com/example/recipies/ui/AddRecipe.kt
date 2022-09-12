@@ -63,10 +63,12 @@ class AddRecipe : Fragment() {
     private val pickItemLauncher: ActivityResultLauncher<Array<String>> =
         registerForActivityResult(ActivityResultContracts.OpenDocument()) {
             binding.pic.setImageURI(it)
-            requireActivity().contentResolver.takePersistableUriPermission(
-                it,
-                Intent.FLAG_GRANT_READ_URI_PERMISSION
-            )
+            if (it != null) {
+                requireActivity().contentResolver.takePersistableUriPermission(
+                    it,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+            }
             imageUri = it
         }
 
@@ -90,7 +92,7 @@ class AddRecipe : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = AddRecipeBinding.inflate(inflater, container, false);
+        _binding = AddRecipeBinding.inflate(inflater, container, false)
 
         return binding.root
     }
