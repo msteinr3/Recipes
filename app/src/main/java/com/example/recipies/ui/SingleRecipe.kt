@@ -69,6 +69,7 @@ class SingleRecipe : Fragment() {
                     binding.progressBar.visibility = View.GONE
                     Toast.makeText(requireContext(),it.status.message, Toast.LENGTH_LONG).show()
                 }
+                else -> {}
             }
         }
 

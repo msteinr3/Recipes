@@ -122,6 +122,7 @@ class AddRecipe : Fragment() {
                         Toast.makeText(requireContext(), it.status.message, Toast.LENGTH_LONG)
                             .show()
                     }
+                    else -> {}
                 }
             }
 
